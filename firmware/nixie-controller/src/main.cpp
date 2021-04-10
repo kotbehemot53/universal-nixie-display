@@ -60,49 +60,6 @@ bool intro_done = false;
 volatile bool new_frame = false;
 
 
-void setup() {
-    //lamps init
-    for (byte i = 0; i < 4; i++) {
-        pinMode( OUT_ANODES[i], OUTPUT );
-        digitalWrite( OUT_ANODES[i], LOW );
-        nums[i] = 15;
-    }
-
-    //digits init
-    for (byte i = 0; i < 4; i++) {
-        pinMode( OUT_BCD[i], OUTPUT );
-        digitalWrite( OUT_BCD[i], LOW );
-    }
-
-    //decimal points init
-    for (byte i = 0; i < 2; i++) {
-        pinMode( OUT_POINTS[i], OUTPUT );
-        digitalWrite( OUT_POINTS[i], LOW );
-    }
-
-    //dimming init
-    pinMode( OUT_DIMMER, OUTPUT );
-    digitalWrite( OUT_DIMMER, HIGH );
-//  analogWrite(OUT_DIMMER, 25);
-
-    //communications init
-    Wire.begin(0x4);
-    Wire.onReceive(receiveEvent); // register event
-
-    Serial.begin(115200);
-
-//  for (byte i = 0; i < 4; i++) {
-//    nums[i] = 6;
-//  }
-//  points[0] = false;
-//  points[1] = false;
-
-    //intro
-    doIntro();
-
-    Serial.println("hullo");
-}
-
 /**
  * Renders given number
  */
@@ -175,52 +132,6 @@ void doIntro()
     Serial.println("intro done");
 }
 
-void loop() {
-
-    //points on-off
-
-    //digit0 on-off
-    multiplexDigit(0);
-    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
-
-    //digit1 on-off
-    multiplexDigit(1);
-    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
-
-    //digit2 on-off
-    multiplexDigit(2);
-    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
-
-    //digit3 on-ff
-    multiplexDigit(3);
-    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
-
-    if (new_frame) {
-        handleNewFrame();
-        new_frame = false;
-    }
-
-//DEBUG
-//    handleInput(CMD_START);
-//    handleInput(CMD_NUM1 | 1);
-//    handleInput(CMD_NUM2 | 2);
-//    handleInput(CMD_NUM3 | 3);
-//    handleInput(CMD_FIN);
-
-}
-
-/**
- * Handles incoming message event
- */
-void receiveEvent(int howMany)
-{
-    while(Wire.available()) // loop through all
-    {
-        byte c = Wire.read(); // receive byte
-        handleInput(c); //return it?
-    }
-}
-
 /**
  * Actual command handling
  */
@@ -277,6 +188,18 @@ byte handleInput (byte in_byte)
     return RESP_FAIL;
 }
 
+/**
+ * Handles incoming message event
+ */
+void receiveEvent(int howMany)
+{
+    while(Wire.available()) // loop through all
+    {
+        byte c = Wire.read(); // receive byte
+        handleInput(c); //return it?
+    }
+}
+
 void handleNewFrame()
 {
     memcpy(point_vals, point_vals_buffer, 2*sizeof(bool));
@@ -293,4 +216,82 @@ void handleNewFrame()
 //    Serial.println("-");
     memcpy(dimmer_buffer, dimmer_defaults, 4*sizeof(byte));
     curr_lamp_idx = 0;
+}
+
+
+void setup() {
+    //lamps init
+    for (byte i = 0; i < 4; i++) {
+        pinMode( OUT_ANODES[i], OUTPUT );
+        digitalWrite( OUT_ANODES[i], LOW );
+        nums[i] = 15;
+    }
+
+    //digits init
+    for (byte i = 0; i < 4; i++) {
+        pinMode( OUT_BCD[i], OUTPUT );
+        digitalWrite( OUT_BCD[i], LOW );
+    }
+
+    //decimal points init
+    for (byte i = 0; i < 2; i++) {
+        pinMode( OUT_POINTS[i], OUTPUT );
+        digitalWrite( OUT_POINTS[i], LOW );
+    }
+
+    //dimming init
+    pinMode( OUT_DIMMER, OUTPUT );
+    digitalWrite( OUT_DIMMER, HIGH );
+//  analogWrite(OUT_DIMMER, 25);
+
+    //communications init
+    Wire.begin(0x4);
+    Wire.onReceive(receiveEvent); // register event
+
+    Serial.begin(115200);
+
+//  for (byte i = 0; i < 4; i++) {
+//    nums[i] = 6;
+//  }
+//  points[0] = false;
+//  points[1] = false;
+
+    //intro
+    doIntro();
+
+    Serial.println("hullo");
+}
+
+void loop() {
+
+    //points on-off
+
+    //digit0 on-off
+    multiplexDigit(0);
+    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
+
+    //digit1 on-off
+    multiplexDigit(1);
+    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
+
+    //digit2 on-off
+    multiplexDigit(2);
+    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
+
+    //digit3 on-ff
+    multiplexDigit(3);
+    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
+
+    if (new_frame) {
+        handleNewFrame();
+        new_frame = false;
+    }
+
+//DEBUG
+//    handleInput(CMD_START);
+//    handleInput(CMD_NUM1 | 1);
+//    handleInput(CMD_NUM2 | 2);
+//    handleInput(CMD_NUM3 | 3);
+//    handleInput(CMD_FIN);
+
 }
