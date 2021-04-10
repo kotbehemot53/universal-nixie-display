@@ -3,7 +3,7 @@
 
 //TODO: add command to run intro
 //TODO: include code execution in the waits (is it worth it?)
-//TODO: measure elsapsed frame time and subtract from bright/dim waits (is it worth it?)
+//TODO: measure elapsed frame time and subtract from bright/dim waits (is it worth it?)
 //TODO: instead of "manual" gradual dimming, include ready routines for it and commands to trigger them (is it really needed?)
 //TODO: think about improving points dimming (is it possible?)
 //TODO: think about pull-downs on anodes & maybe shorter AFTER_IMAGE_US thanks to that?
