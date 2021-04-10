@@ -78,28 +78,21 @@ void multiplexDigit(byte anode_idx)
     bool show_num = (nums[3 - anode_idx] >= 0) && (nums[3 - anode_idx] < 10);
     bool show_point = ((anode_idx % 2) == 0) && point_vals[(anode_idx / 2)];
 
-    if (OUT_ANODES[anode_idx] == 3) {
-        analogWrite(OUT_ANODES[anode_idx], 127);
-        delayMicroseconds(FRAME_US);
-        digitalWrite(OUT_ANODES[anode_idx], LOW);
-    } else {
-
-        if (show_num) {
-            numOut(nums[3 - anode_idx]); //important NOT to set the numOut when there's no need - at high framerates it confuses the russian and causes microblinks on the off lamp
-            digitalWrite( OUT_ANODES[anode_idx], HIGH );
-        }
-        if (show_point) {
-            digitalWrite( OUT_POINTS[anode_idx / 2], HIGH );
-        }
-        delayMicroseconds(bright_times[3 - anode_idx]);
-        if (show_num) {
-            digitalWrite( OUT_ANODES[anode_idx], LOW );
-        }
-        if (show_point) {
-            digitalWrite( OUT_POINTS[anode_idx / 2], LOW );
-        }
-        delayMicroseconds(dim_times[3 - anode_idx]);
+    if (show_num) {
+        numOut(nums[3 - anode_idx]); //important NOT to set the numOut when there's no need - at high framerates it confuses the russian and causes microblinks on the off lamp
+        digitalWrite( OUT_ANODES[anode_idx], HIGH );
     }
+    if (show_point) {
+        digitalWrite( OUT_POINTS[anode_idx / 2], HIGH );
+    }
+    delayMicroseconds(bright_times[3 - anode_idx]);
+    if (show_num) {
+        digitalWrite( OUT_ANODES[anode_idx], LOW );
+    }
+    if (show_point) {
+        digitalWrite( OUT_POINTS[anode_idx / 2], LOW );
+    }
+    delayMicroseconds(dim_times[3 - anode_idx]);
 }
 
 /**
@@ -242,7 +235,6 @@ void setup() {
     //dimming init
     pinMode( OUT_DIMMER, OUTPUT );
     digitalWrite( OUT_DIMMER, HIGH );
-//  analogWrite(OUT_DIMMER, 25);
 
     //communications init
     Wire.begin(0x4);
