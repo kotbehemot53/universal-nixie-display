@@ -7,6 +7,7 @@
 //TODO: instead of "manual" gradual dimming, include ready routines for it and commands to trigger them (is it really needed?)
 //TODO: think about improving points dimming (is it possible?)
 //TODO: think about pull-downs on anodes & maybe shorter AFTER_IMAGE_US thanks to that?
+//TODO: think about testing PWM dimming (each anode on a PWM output) using PWM registers with no clock divider (at max freq) (is it worth it?)
 
 //number commands - last 4 bits set the number, anything above 9 is no light at all on the lamp
 //REMEMBER - all CMDs with most significant bit set (>0x80) are treated as a number command - so don't use those for other purposes!
