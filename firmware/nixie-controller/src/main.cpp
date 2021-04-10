@@ -28,7 +28,6 @@ const byte RESP_FAIL = 0b01010101;
 const byte OUT_BCD[] = {4,5,6,7}; //pins for encoding currently displayed number (in BCD)
 const byte OUT_POINTS[] = {13,12}; //pins for setting decimal points
 const byte OUT_ANODES[] = {2,3,8,9}; //pins for multiplexing lamps (they switch power to particular anodes)
-const byte OUT_DIMMER = 11; //pin regulating dimming for current lamp
 
 //times
 //Afterimage occurs below 300 us
@@ -231,10 +230,6 @@ void setup() {
         pinMode( OUT_POINTS[i], OUTPUT );
         digitalWrite( OUT_POINTS[i], LOW );
     }
-
-    //dimming init
-    pinMode( OUT_DIMMER, OUTPUT );
-    digitalWrite( OUT_DIMMER, HIGH );
 
     //communications init
     Wire.begin(0x4);
