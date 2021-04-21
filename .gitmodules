@@ -4,3 +4,6 @@
 [submodule "und-nixie-controller"]
 	path = und-nixie-controller
 	url = git@github.com:kotbehemot53/und-nixie-controller.git
+[submodule "und-raspberry"]
+	path = und-raspberry
+	url = git@github.com:kotbehemot53/und-raspberry.git
