@@ -2,22 +2,22 @@
 #include <Wire.h>
 
 //TODO: add command to run intro
-//TODO: include code execution in the waits (is it worth it?)
+//TODO: include code execution in the waits (is it worth it?) or at least the interrupts?
 //DONE: measure elapsed frame time and subtract from bright/dim waits (is it worth it?)
 //TODO: instead of "manual" gradual dimming, include ready routines for it and commands to trigger them (is it really needed?)
 //TODO: think about improving points dimming (is it possible?)
 //TODO: think about pull-downs on anodes & maybe shorter AFTER_IMAGE_US thanks to that?
 //TODO: think about testing PWM dimming (each anode on a PWM output) using PWM registers with no clock divider (at max freq) (is it worth it?)
 
-//TODO: support HV circuit switching (command)
-//TODO: support commas
+//DONE: support HV circuit switching (command)
+//DONE: support commas
 //DONE: 2-6 digits support
 
 //you can change this to adjust the code to the physical display length (values 2-6 are allowed)
-const short DIGITS_USED = 6;
+const unsigned short DIGITS_USED = 6;
 
 //don't change this:
-const short MAX_DIGITS_USED = 6;
+const unsigned short MAX_DIGITS_USED = 6;
 
 //number commands - last 4 bits set the number, anything above 9 is no light at all on the lamp
 //REMEMBER - all CMDs within <0x80 - 0xD0> are treated as a number command - so don't use those for other purposes!
@@ -31,8 +31,6 @@ const byte CMD_NOOP = 0x30;
 const byte CMD_START = 0x40; //currently unused - works as NOOP
 const byte CMD_POINT = 0x50; //last 4 bits determine which point should be turned on (only vales 0 and 1 are allowed)
 const byte CMD_DIMMER = 0x60; //last 4 bits set the duty cycle; it's assigned to the latest digit set
-
-//TODO: buffer for various points, incl them in multiplexing
 const byte CMD_LAMP_POINT_L = 0xE0;
 const byte CMD_LAMP_POINT_R = 0xF0;
 
@@ -45,15 +43,14 @@ const byte OUT_BCD[] = {4,5,6,7}; //pins for encoding currently displayed number
 const byte OUT_POINTS[] = {12,13}; //pins for setting decimal points (neon lamps)
 //array size must equal MAX_DIGITS_USED
 const byte OUT_ANODES[] = {2,3,8,9,10,11}; //pins for multiplexing lamps (they switch power to particular anodes)
-//TODO: actually support the points! now they are always off
-const byte LAMP_POINTS[] = {A1, A2}; //pins for decimal points in main lamps
+const byte OUT_LAMP_COMMAS[] = {A1, A2}; //pins for decimal points in main lamps
 const byte HV_ENABLE = A0;
 const byte STATUS = A3;
 
 //times
 //Afterimage occurs below 300 us
-const short AFTER_IMAGE_US = 300; //interframe interval to avoid afterimages
-const short FRAME_US = 1000; //frame time
+const unsigned short AFTER_IMAGE_US = 300; //interframe interval to avoid afterimages
+const unsigned short FRAME_US = 1000; //frame time
 const float DIMMING_CURVE_POWER = 2.1;
 
 //values
@@ -66,17 +63,26 @@ bool point_vals_buffer[2] = {false, false};
 bool points_off[2] = {false, false};
 
 //array sizes must equal MAX_DIGITS_USED
+bool commas_off[MAX_DIGITS_USED] = {false,false,false,false,false,false};
+bool l_comma_vals[MAX_DIGITS_USED] = {false,false,false,false,false,false};
+bool l_comma_vals_buffer[MAX_DIGITS_USED] = {false,false,false,false,false,false};
+bool r_comma_vals[MAX_DIGITS_USED] = {false,false,false,false,false,false};
+bool r_comma_vals_buffer[MAX_DIGITS_USED] = {false,false,false,false,false,false};
+
+//array sizes must equal MAX_DIGITS_USED
 byte nums[MAX_DIGITS_USED] = {0, 0, 0, 0, 0, 0};
 byte nums_buffer[MAX_DIGITS_USED] = {15, 15, 15, 15, 15, 15};
 byte fail_nums[MAX_DIGITS_USED] = {15, 15, 15, 15, 15, 15};
 
 //array sizes must equal MAX_DIGITS_USED
-short bright_times[] = {FRAME_US,FRAME_US,FRAME_US,FRAME_US,FRAME_US,FRAME_US};
-short dim_times[] = {0,0,0,0,0,0};
+unsigned short bright_times[] = {FRAME_US,FRAME_US,FRAME_US,FRAME_US,FRAME_US,FRAME_US};
+unsigned short dim_times[] = {0,0,0,0,0,0};
 byte dimmer_buffer[] = {15,15,15,15,15,15};
 byte dimmer_defaults[] = {15,15,15,15,15,15};
 
 byte curr_lamp_idx = 0;
+byte curr_l_point_idx = 0;
+byte curr_r_point_idx = 0;
 
 volatile bool new_frame = false;
 
@@ -100,13 +106,22 @@ void multiplexDigit(byte anode_idx)
     //points are multiplexed together with anode 0 and 1:
     bool show_point = (anode_idx == 0 || anode_idx == 1) && point_vals[anode_idx];
 
+    bool show_l_comma = l_comma_vals[anode_idx];
+    bool show_r_comma = r_comma_vals[anode_idx];
+
     unsigned long numProcessHighStart = micros();
+    if (show_l_comma) {
+        digitalWrite(OUT_LAMP_COMMAS[0], HIGH);
+    }
+    if (show_r_comma) {
+        digitalWrite(OUT_LAMP_COMMAS[1], HIGH);
+    }
     if (show_num) {
         numOut(nums[anode_idx]); //important NOT to set the numOut when there's no need - at high framerates it confuses the russian and causes microblinks on the off lamp
-        digitalWrite( OUT_ANODES[anode_idx], HIGH );
+        digitalWrite(OUT_ANODES[anode_idx], HIGH );
     }
     if (show_point) {
-        digitalWrite( OUT_POINTS[anode_idx], HIGH );
+        digitalWrite(OUT_POINTS[anode_idx], HIGH );
     }
     unsigned long numProcessHighEnd = micros();
     unsigned int finalDelay = (bright_times[anode_idx]) - (numProcessHighEnd - numProcessHighStart);
@@ -120,10 +135,16 @@ void multiplexDigit(byte anode_idx)
 
     unsigned long numProcessLowStart = micros();
     if (show_num) {
-        digitalWrite( OUT_ANODES[anode_idx], LOW );
+        digitalWrite(OUT_ANODES[anode_idx], LOW );
     }
     if (show_point) {
-        digitalWrite( OUT_POINTS[anode_idx], LOW );
+        digitalWrite(OUT_POINTS[anode_idx], LOW );
+    }
+    if (show_l_comma) {
+        digitalWrite(OUT_LAMP_COMMAS[0], LOW);
+    }
+    if (show_r_comma) {
+        digitalWrite(OUT_LAMP_COMMAS[1], LOW);
     }
     unsigned long numProcessLowEnd = micros();
     finalDelay = (dim_times[anode_idx]) - (numProcessLowEnd - numProcessLowStart);
@@ -185,6 +206,28 @@ byte handleInput (byte in_byte)
     }
     if (in_byte == CMD_OFF) {
         digitalWrite(HV_ENABLE, LOW);
+
+        return RESP_SUCCESS;
+    }
+    if ((in_byte & 0xF0) == CMD_LAMP_POINT_L) {
+        curr_l_point_idx = in_byte & 0x0F;
+        if (curr_l_point_idx >= DIGITS_USED) {
+            //digit above the number of digits used is not allowed
+            return RESP_FAIL;
+        }
+
+        l_comma_vals_buffer[curr_l_point_idx] = true;
+
+        return RESP_SUCCESS;
+    }
+    if ((in_byte & 0xF0) == CMD_LAMP_POINT_R) {
+        curr_r_point_idx = in_byte & 0x0F;
+        if (curr_r_point_idx >= DIGITS_USED) {
+            //digit above the number of digits used is not allowed
+            return RESP_FAIL;
+        }
+
+        r_comma_vals_buffer[curr_r_point_idx] = true;
 
         return RESP_SUCCESS;
     }
@@ -257,6 +300,10 @@ void handleNewFrame()
     memcpy(point_vals_buffer, points_off, 2*sizeof(bool));
     memcpy(nums, nums_buffer,MAX_DIGITS_USED*sizeof(byte));
     memcpy(nums_buffer, fail_nums, MAX_DIGITS_USED*sizeof(byte));
+    memcpy(l_comma_vals, l_comma_vals_buffer,MAX_DIGITS_USED*sizeof(byte));
+    memcpy(l_comma_vals_buffer, commas_off, MAX_DIGITS_USED*sizeof(byte));
+    memcpy(r_comma_vals, r_comma_vals_buffer,MAX_DIGITS_USED*sizeof(byte));
+    memcpy(r_comma_vals_buffer, commas_off, MAX_DIGITS_USED*sizeof(byte));
     for (byte i = 0; i < MAX_DIGITS_USED; i++) {
         float multiplier = pow( (float)(dimmer_buffer[i] + 1)/16.0, DIMMING_CURVE_POWER );
         bright_times[i] =(short) ((float)FRAME_US * multiplier);
@@ -293,8 +340,8 @@ void setup() {
 
     //lamp points init
     for (byte i = 0; i < 2; i++) {
-        pinMode( LAMP_POINTS[i], OUTPUT );
-        digitalWrite( LAMP_POINTS[i], LOW );
+        pinMode(OUT_LAMP_COMMAS[i], OUTPUT );
+        digitalWrite(OUT_LAMP_COMMAS[i], LOW );
     }
 
     //digits init
@@ -320,12 +367,6 @@ void setup() {
     Wire.onReceive(receiveEvent); // register event
 
     Serial.begin(115200);
-
-//  for (byte i = 0; i < 4; i++) {
-//    nums[i] = 6;
-//  }
-//  points[0] = false;
-//  points[1] = false;
 
     //intro
     doIntro();
