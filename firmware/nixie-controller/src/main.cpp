@@ -166,15 +166,29 @@ void doIntro()
 
     short frames_2 = frames/2;
     short frames_2digs = frames / (DIGITS_USED * 2);
+    short frames_60 = frames / 60;
 
     for (short i = 0; i < frames; i++) {
         for (byte j = 0; j < DIGITS_USED; j++) {
+            //right commas looped sweep
+            if (i % (DIGITS_USED * frames_60) == j * frames_60) {
+                for (byte k = 0; k < DIGITS_USED; k++) {
+                    if (k == j) {
+                        r_comma_vals[k] = true;
+                    } else {
+                        r_comma_vals[k] = false;
+                    }
+                }
+            }
+            //6's on one by one
             if (i == j * frames_2digs) {
                 nums[j] = 6;
             }
+            //points on beginning and on half-time
             if (i == j*frames_2) {
                 point_vals[j] = true;
             }
+            //brightness gradual up
             float booblator = (float)(i - j * frames_2digs);
             if (booblator < 1)
                 booblator = 1.0;
