@@ -21,13 +21,12 @@ const short MAX_DIGITS_USED = 6;
 
 //number commands - last 4 bits set the number, anything above 9 is no light at all on the lamp
 //REMEMBER - all CMDs with most significant bit set (>0x80) are treated as a number command - so don't use those for other purposes!
-//now they are defined procedurally
-//const byte CMD_NUM1 = 0x80;
-//const byte CMD_NUM2 = 0x90;
-//const byte CMD_NUM3 = 0xA0;
-//const byte CMD_NUM4 = 0xB0;
-//const byte CMD_NUM5 = 0xC0;
-//const byte CMD_NUM6 = 0xD0;
+const byte CMD_NUM1 = 0x80;
+const byte CMD_NUM2 = 0x90;
+const byte CMD_NUM3 = 0xA0;
+const byte CMD_NUM4 = 0xB0;
+const byte CMD_NUM5 = 0xC0;
+const byte CMD_NUM6 = 0xD0;
 
 //regular commands
 const byte CMD_FIN = 0x20; //loads number and dimming values from buffers to output (renders new frame)
@@ -96,21 +95,21 @@ void numOut( byte num )
  */
 void multiplexDigit(byte anode_idx)
 {
-    bool show_num = (nums[5 - anode_idx] >= 0) && (nums[5 - anode_idx] < 10);
+    bool show_num = (nums[anode_idx] >= 0) && (nums[anode_idx] < 10);
     //points are multiplexed together with anode 0 and 1:
     bool show_point = (anode_idx == 0 || anode_idx == 1) && point_vals[anode_idx];
 
     unsigned long numProcessHighStart = micros();
     if (show_num) {
-        numOut(nums[5 - anode_idx]); //important NOT to set the numOut when there's no need - at high framerates it confuses the russian and causes microblinks on the off lamp
+        numOut(nums[anode_idx]); //important NOT to set the numOut when there's no need - at high framerates it confuses the russian and causes microblinks on the off lamp
         digitalWrite( OUT_ANODES[anode_idx], HIGH );
     }
     if (show_point) {
         digitalWrite( OUT_POINTS[anode_idx], HIGH );
     }
     unsigned long numProcessHighEnd = micros();
-    unsigned int finalDelay = (bright_times[5 - anode_idx]) - (numProcessHighEnd - numProcessHighStart);
-    if (finalDelay > bright_times[5 - anode_idx]) {
+    unsigned int finalDelay = (bright_times[anode_idx]) - (numProcessHighEnd - numProcessHighStart);
+    if (finalDelay > bright_times[anode_idx]) {
         finalDelay = 0;
     }
 //    delayMicroseconds(bright_times[3 - anode_idx]);
@@ -126,8 +125,8 @@ void multiplexDigit(byte anode_idx)
         digitalWrite( OUT_POINTS[anode_idx], LOW );
     }
     unsigned long numProcessLowEnd = micros();
-    finalDelay = (dim_times[5 - anode_idx]) - (numProcessLowEnd - numProcessLowStart);
-    if (finalDelay > dim_times[5 - anode_idx]) {
+    finalDelay = (dim_times[anode_idx]) - (numProcessLowEnd - numProcessLowStart);
+    if (finalDelay > dim_times[anode_idx]) {
         finalDelay = 0;
     }
 //    delayMicroseconds(dim_times[3 - anode_idx]);
@@ -145,13 +144,11 @@ void doIntro()
 
     short frames_2 = frames/2;
     short frames_2digs = frames / (DIGITS_USED * 2);
-    short current_digit;
 
     for (short i = 0; i < frames; i++) {
         for (byte j = 0; j < DIGITS_USED; j++) {
-            current_digit = j + MAX_DIGITS_USED - DIGITS_USED;
             if (i == j * frames_2digs) {
-                nums[current_digit] = 6;
+                nums[j] = 6;
             }
             if (i == j*frames_2) {
                 point_vals[1-j] = true;
@@ -162,8 +159,8 @@ void doIntro()
             else if (booblator > (float)frames_2)
                 booblator = (float)frames_2;
             float multiplier = pow(booblator/(float)frames_2, 2.5);
-            bright_times[current_digit] = multiplier * FRAME_US;
-            dim_times[current_digit] = (1.0 - multiplier) * FRAME_US;
+            bright_times[j] = multiplier * FRAME_US;
+            dim_times[j] = (1.0 - multiplier) * FRAME_US;
         }
         loop();
     }
