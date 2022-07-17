@@ -3,14 +3,16 @@
 
 //TODO: add command to run intro
 //TODO: include code execution in the waits (is it worth it?)
-//TODO: measure elapsed frame time and subtract from bright/dim waits (is it worth it?)
+//DONE: measure elapsed frame time and subtract from bright/dim waits (is it worth it?)
 //TODO: instead of "manual" gradual dimming, include ready routines for it and commands to trigger them (is it really needed?)
 //TODO: think about improving points dimming (is it possible?)
 //TODO: think about pull-downs on anodes & maybe shorter AFTER_IMAGE_US thanks to that?
 //TODO: think about testing PWM dimming (each anode on a PWM output) using PWM registers with no clock divider (at max freq) (is it worth it?)
 
-//TODO: support HV circuit switching
+//TODO: support HV circuit switching (command)
 //TODO: support commas
+//TODO: 1-6 digits support
+
 
 //number commands - last 4 bits set the number, anything above 9 is no light at all on the lamp
 //REMEMBER - all CMDs with most significant bit set (>0x80) are treated as a number command - so don't use those for other purposes!
@@ -87,6 +89,7 @@ void multiplexDigit(byte anode_idx)
     bool show_num = (nums[3 - anode_idx] >= 0) && (nums[3 - anode_idx] < 10);
     bool show_point = ((anode_idx % 2) == 0) && point_vals[(anode_idx / 2)];
 
+    unsigned long numProcessHighStart = micros();
     if (show_num) {
         numOut(nums[3 - anode_idx]); //important NOT to set the numOut when there's no need - at high framerates it confuses the russian and causes microblinks on the off lamp
         digitalWrite( OUT_ANODES[anode_idx], HIGH );
@@ -94,14 +97,31 @@ void multiplexDigit(byte anode_idx)
     if (show_point) {
         digitalWrite( OUT_POINTS[anode_idx / 2], HIGH );
     }
-    delayMicroseconds(bright_times[3 - anode_idx]);
+    unsigned long numProcessHighEnd = micros();
+    unsigned int finalDelay = (bright_times[3 - anode_idx]) - (numProcessHighEnd - numProcessHighStart);
+    if (finalDelay > bright_times[3 - anode_idx]) {
+        finalDelay = 0;
+    }
+//    delayMicroseconds(bright_times[3 - anode_idx]);
+    delayMicroseconds(finalDelay);
+//    Serial.println(String("a: ") + String(finalDelay));
+
+
+    unsigned long numProcessLowStart = micros();
     if (show_num) {
         digitalWrite( OUT_ANODES[anode_idx], LOW );
     }
     if (show_point) {
         digitalWrite( OUT_POINTS[anode_idx / 2], LOW );
     }
-    delayMicroseconds(dim_times[3 - anode_idx]);
+    unsigned long numProcessLowEnd = micros();
+    finalDelay = (dim_times[3 - anode_idx]) - (numProcessLowEnd - numProcessLowStart);
+    if (finalDelay > dim_times[3 - anode_idx]) {
+        finalDelay = 0;
+    }
+//    delayMicroseconds(dim_times[3 - anode_idx]);
+    delayMicroseconds(finalDelay);
+//    Serial.println(String("b: ") + String(finalDelay));
 }
 
 /**
@@ -210,8 +230,8 @@ void handleNewFrame()
     memcpy(nums_buffer, fail_nums, 4*sizeof(byte));
     for (byte i = 0; i < 4; i++) {
         float multiplier = pow( (float)(dimmer_buffer[i] + 1)/16.0, DIMMING_CURVE_POWER );
-        bright_times[i] = (float)FRAME_US * multiplier;
-        dim_times[i] = (float)FRAME_US * ( 1 - multiplier );
+        bright_times[i] =(short) ((float)FRAME_US * multiplier);
+        dim_times[i] = (short) ((float)FRAME_US * ( 1 - multiplier ));
 //      Serial.println(bright_times[i]);
 //      Serial.println(dim_times[i]);
     }
@@ -220,6 +240,15 @@ void handleNewFrame()
     curr_lamp_idx = 0;
 }
 
+//silly - pauses lamps
+//void statusBlink(int count = 1) {
+//    for (int i = 0; i < count; i++) {
+//        digitalWrite(STATUS, LOW);
+//        delay(100);
+//        digitalWrite(STATUS, HIGH);
+//        delay(100);
+//    }
+//}
 
 void setup() {
     //status led init
@@ -272,6 +301,7 @@ void setup() {
     //intro
     doIntro();
 
+//    statusBlink(2);
     Serial.println("hullo");
 }
 
@@ -291,14 +321,21 @@ void loop() {
     multiplexDigit(2);
     delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
 
-    //digit3 on-ff
+    //digit3 on-off
     multiplexDigit(3);
-    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
 
+    unsigned long newFrameProcessStart = micros();
     if (new_frame) {
         handleNewFrame();
         new_frame = false;
     }
+    unsigned long newFrameProcessEnd = micros();
+
+    //shortening the final afterimage delay to take varying frame length into account (new_frame section
+    //   happens only sometimes)
+    delayMicroseconds(AFTER_IMAGE_US - (newFrameProcessEnd - newFrameProcessStart)); //Afterimage occurs below 300 us
+
+//    Serial.println(String(newFrameProcessEnd - newFrameProcessStart));
 
 //DEBUG
 //    handleInput(CMD_START);
@@ -307,4 +344,6 @@ void loop() {
 //    handleInput(CMD_NUM3 | 3);
 //    handleInput(CMD_FIN);
 
+    delayMicroseconds(FRAME_US+AFTER_IMAGE_US);
+    delayMicroseconds(FRAME_US+AFTER_IMAGE_US);
 }
