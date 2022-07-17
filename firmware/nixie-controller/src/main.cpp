@@ -9,6 +9,9 @@
 //TODO: think about pull-downs on anodes & maybe shorter AFTER_IMAGE_US thanks to that?
 //TODO: think about testing PWM dimming (each anode on a PWM output) using PWM registers with no clock divider (at max freq) (is it worth it?)
 
+//TODO: support HV circuit switching
+//TODO: support commas
+
 //number commands - last 4 bits set the number, anything above 9 is no light at all on the lamp
 //REMEMBER - all CMDs with most significant bit set (>0x80) are treated as a number command - so don't use those for other purposes!
 const byte CMD_NUM1 = 0x80;
@@ -29,8 +32,12 @@ const byte RESP_FAIL = 0b01010101;
 
 //pins
 const byte OUT_BCD[] = {4,5,6,7}; //pins for encoding currently displayed number (in BCD)
-const byte OUT_POINTS[] = {13,12}; //pins for setting decimal points
+const byte OUT_POINTS[] = {13,12}; //pins for setting decimal points (neon lamps)
 const byte OUT_ANODES[] = {2,3,8,9}; //pins for multiplexing lamps (they switch power to particular anodes)
+//TODO: actually support the points! now they are always off
+const byte LAMP_POINTS[] = {A1, A2}; //pins for decimal points in main lamps
+const byte HV_ENABLE = A0;
+const byte STATUS = A3;
 
 //times
 //Afterimage occurs below 300 us
@@ -215,11 +222,21 @@ void handleNewFrame()
 
 
 void setup() {
+    //status led init
+    pinMode(STATUS, OUTPUT);
+    digitalWrite(STATUS, LOW);
+
     //lamps init
     for (byte i = 0; i < 4; i++) {
         pinMode( OUT_ANODES[i], OUTPUT );
         digitalWrite( OUT_ANODES[i], LOW );
         nums[i] = 15;
+    }
+
+    //lamp points init
+    for (byte i = 0; i < 2; i++) {
+        pinMode( LAMP_POINTS[i], OUTPUT );
+        digitalWrite( LAMP_POINTS[i], LOW );
     }
 
     //digits init
@@ -233,6 +250,12 @@ void setup() {
         pinMode( OUT_POINTS[i], OUTPUT );
         digitalWrite( OUT_POINTS[i], LOW );
     }
+
+    //power init
+    delay(100);
+    pinMode(HV_ENABLE, OUTPUT);
+    digitalWrite(HV_ENABLE, HIGH);
+    digitalWrite(STATUS, HIGH);
 
     //communications init
     Wire.begin(0x4);
