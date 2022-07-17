@@ -20,20 +20,26 @@ const short DIGITS_USED = 6;
 const short MAX_DIGITS_USED = 6;
 
 //number commands - last 4 bits set the number, anything above 9 is no light at all on the lamp
-//REMEMBER - all CMDs with most significant bit set (>0x80) are treated as a number command - so don't use those for other purposes!
-const byte CMD_NUM1 = 0x80;
-const byte CMD_NUM2 = 0x90;
-const byte CMD_NUM3 = 0xA0;
-const byte CMD_NUM4 = 0xB0;
-const byte CMD_NUM5 = 0xC0;
-const byte CMD_NUM6 = 0xD0;
+//REMEMBER - all CMDs within <0x80 - 0xD0> are treated as a number command - so don't use those for other purposes!
+const byte CMD_NUM = 0x80;
+//const byte CMD_NUM2 = 0x90;
+//const byte CMD_NUM3 = 0xA0;
+//const byte CMD_NUM4 = 0xB0;
+//const byte CMD_NUM5 = 0xC0;
+//const byte CMD_NUM6 = 0xD0;
 
 //regular commands
+const byte CMD_OFF = 0x10; //turn the lamps off
+const byte CMD_ON = 0x11; //turn the lamps on
 const byte CMD_FIN = 0x20; //loads number and dimming values from buffers to output (renders new frame)
 const byte CMD_NOOP = 0x30;
 const byte CMD_START = 0x40; //currently unused - works as NOOP
 const byte CMD_POINT = 0x50; //last 4 bits determine which point should be turned on (only vales 0 and 1 are allowed)
 const byte CMD_DIMMER = 0x60; //last 4 bits set the duty cycle; it's assigned to the latest digit set
+
+//TODO: buffer for various points, incl them in multiplexing
+const byte CMD_LAMP_POINT_L = 0xE0;
+const byte CMD_LAMP_POINT_R = 0xF0;
 
 //responses
 const byte RESP_SUCCESS = 0x00;
@@ -177,7 +183,17 @@ byte handleInput (byte in_byte)
 //    Serial.println("strt");
         return RESP_SUCCESS;
     }
-    if (in_byte & 0x80) {  //a number was sent
+    if (in_byte == CMD_ON) {
+        digitalWrite(HV_ENABLE, HIGH);
+
+        return RESP_SUCCESS;
+    }
+    if (in_byte == CMD_OFF) {
+        digitalWrite(HV_ENABLE, LOW);
+
+        return RESP_SUCCESS;
+    }
+    if (in_byte & CMD_NUM) {  //a number was sent
 //    Serial.print("num ");
 //    Serial.print((in_byte & 0x70) >> 4);
 //    Serial.print(":");
