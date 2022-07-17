@@ -29,10 +29,10 @@ const byte CMD_ON = 0x11; //turn the lamps on
 const byte CMD_FIN = 0x20; //loads number and dimming values from buffers to output (renders new frame)
 const byte CMD_NOOP = 0x30;
 const byte CMD_START = 0x40; //currently unused - works as NOOP
-const byte CMD_POINT = 0x50; //last 4 bits determine which point should be turned on (only vales 0 and 1 are allowed)
+const byte CMD_POINT = 0x50; //last 4 bits determine which point should be turned on (only values 0 and 1 are allowed)
 const byte CMD_DIMMER = 0x60; //last 4 bits set the duty cycle; it's assigned to the latest digit set
-const byte CMD_LAMP_POINT_L = 0xE0;
-const byte CMD_LAMP_POINT_R = 0xF0;
+const byte CMD_LAMP_POINT_L = 0xE0; //last 4 bits determine which left comma should be on (only values between 0 and DIGITS_USED - 1 are allowed)
+const byte CMD_LAMP_POINT_R = 0xF0; //last 4 bits determine which right comma should be on (only values between 0 and DIGITS_USED - 1 are allowed)
 
 //responses
 const byte RESP_SUCCESS = 0x00;
