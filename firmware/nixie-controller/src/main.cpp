@@ -78,8 +78,6 @@ byte dimmer_defaults[] = {15,15,15,15,15,15};
 
 byte curr_lamp_idx = 0;
 
-bool intro_done = false;
-
 volatile bool new_frame = false;
 
 
@@ -147,11 +145,13 @@ void doIntro()
 
     short frames_2 = frames/2;
     short frames_2digs = frames / (DIGITS_USED * 2);
+    short current_digit;
 
     for (short i = 0; i < frames; i++) {
         for (byte j = 0; j < DIGITS_USED; j++) {
+            current_digit = j + MAX_DIGITS_USED - DIGITS_USED;
             if (i == j * frames_2digs) {
-                nums[j] = 6;
+                nums[current_digit] = 6;
             }
             if (i == j*frames_2) {
                 point_vals[1-j] = true;
@@ -162,8 +162,8 @@ void doIntro()
             else if (booblator > (float)frames_2)
                 booblator = (float)frames_2;
             float multiplier = pow(booblator/(float)frames_2, 2.5);
-            bright_times[j] = multiplier * FRAME_US;
-            dim_times[j] = (1.0 - multiplier) * FRAME_US;
+            bright_times[current_digit] = multiplier * FRAME_US;
+            dim_times[current_digit] = (1.0 - multiplier) * FRAME_US;
         }
         loop();
     }
