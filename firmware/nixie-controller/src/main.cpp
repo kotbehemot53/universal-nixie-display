@@ -41,7 +41,7 @@ const byte RESP_FAIL = 0b01010101;
 
 //pins
 const byte OUT_BCD[] = {4,5,6,7}; //pins for encoding currently displayed number (in BCD)
-const byte OUT_POINTS[] = {13,12}; //pins for setting decimal points (neon lamps)
+const byte OUT_POINTS[] = {12,13}; //pins for setting decimal points (neon lamps)
 //array size must equal MAX_DIGITS_USED
 const byte OUT_ANODES[] = {2,3,8,9,10,11}; //pins for multiplexing lamps (they switch power to particular anodes)
 //TODO: actually support the points! now they are always off
@@ -151,7 +151,7 @@ void doIntro()
                 nums[j] = 6;
             }
             if (i == j*frames_2) {
-                point_vals[1-j] = true;
+                point_vals[j] = true;
             }
             float booblator = (float)(i - j * frames_2digs);
             if (booblator < 1)
