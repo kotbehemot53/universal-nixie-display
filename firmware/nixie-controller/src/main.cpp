@@ -22,11 +22,6 @@ const short MAX_DIGITS_USED = 6;
 //number commands - last 4 bits set the number, anything above 9 is no light at all on the lamp
 //REMEMBER - all CMDs within <0x80 - 0xD0> are treated as a number command - so don't use those for other purposes!
 const byte CMD_NUM = 0x80;
-//const byte CMD_NUM2 = 0x90;
-//const byte CMD_NUM3 = 0xA0;
-//const byte CMD_NUM4 = 0xB0;
-//const byte CMD_NUM5 = 0xC0;
-//const byte CMD_NUM6 = 0xD0;
 
 //regular commands
 const byte CMD_OFF = 0x10; //turn the lamps off
