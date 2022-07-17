@@ -11,15 +11,23 @@
 
 //TODO: support HV circuit switching (command)
 //TODO: support commas
-//TODO: 1-6 digits support
+//DONE: 2-6 digits support
 
+//you can change this to adjust the code to the physical display length (values 2-6 are allowed)
+const short DIGITS_USED = 6;
+
+//don't change this:
+const short MAX_DIGITS_USED = 6;
 
 //number commands - last 4 bits set the number, anything above 9 is no light at all on the lamp
 //REMEMBER - all CMDs with most significant bit set (>0x80) are treated as a number command - so don't use those for other purposes!
-const byte CMD_NUM1 = 0x80;
-const byte CMD_NUM2 = 0x90;
-const byte CMD_NUM3 = 0xA0;
-const byte CMD_NUM4 = 0xB0;
+//now they are defined procedurally
+//const byte CMD_NUM1 = 0x80;
+//const byte CMD_NUM2 = 0x90;
+//const byte CMD_NUM3 = 0xA0;
+//const byte CMD_NUM4 = 0xB0;
+//const byte CMD_NUM5 = 0xC0;
+//const byte CMD_NUM6 = 0xD0;
 
 //regular commands
 const byte CMD_FIN = 0x20; //loads number and dimming values from buffers to output (renders new frame)
@@ -35,7 +43,8 @@ const byte RESP_FAIL = 0b01010101;
 //pins
 const byte OUT_BCD[] = {4,5,6,7}; //pins for encoding currently displayed number (in BCD)
 const byte OUT_POINTS[] = {13,12}; //pins for setting decimal points (neon lamps)
-const byte OUT_ANODES[] = {2,3,8,9}; //pins for multiplexing lamps (they switch power to particular anodes)
+//array size must equal MAX_DIGITS_USED
+const byte OUT_ANODES[] = {2,3,8,9,10,11}; //pins for multiplexing lamps (they switch power to particular anodes)
 //TODO: actually support the points! now they are always off
 const byte LAMP_POINTS[] = {A1, A2}; //pins for decimal points in main lamps
 const byte HV_ENABLE = A0;
@@ -56,14 +65,17 @@ bool point_vals[2] = {false, false};
 bool point_vals_buffer[2] = {false, false};
 bool points_off[2] = {false, false};
 
-byte nums[4] = {0, 0, 0, 0};
-byte nums_buffer[4] = {15, 15, 15, 15};
-byte fail_nums[4] = {15, 15, 15, 15};
+//array sizes must equal MAX_DIGITS_USED
+byte nums[MAX_DIGITS_USED] = {0, 0, 0, 0, 0, 0};
+byte nums_buffer[MAX_DIGITS_USED] = {15, 15, 15, 15, 15, 15};
+byte fail_nums[MAX_DIGITS_USED] = {15, 15, 15, 15, 15, 15};
 
-short bright_times[] = {FRAME_US,FRAME_US,FRAME_US,FRAME_US};
-short dim_times[] = {0,0,0,0};
-byte dimmer_buffer[] = {15,15,15,15};
-byte dimmer_defaults[] = {15,15,15,15};
+//array sizes must equal MAX_DIGITS_USED
+short bright_times[] = {FRAME_US,FRAME_US,FRAME_US,FRAME_US,FRAME_US,FRAME_US};
+short dim_times[] = {0,0,0,0,0,0};
+byte dimmer_buffer[] = {15,15,15,15,15,15};
+byte dimmer_defaults[] = {15,15,15,15,15,15};
+
 byte curr_lamp_idx = 0;
 
 bool intro_done = false;
@@ -86,20 +98,21 @@ void numOut( byte num )
  */
 void multiplexDigit(byte anode_idx)
 {
-    bool show_num = (nums[3 - anode_idx] >= 0) && (nums[3 - anode_idx] < 10);
-    bool show_point = ((anode_idx % 2) == 0) && point_vals[(anode_idx / 2)];
+    bool show_num = (nums[5 - anode_idx] >= 0) && (nums[5 - anode_idx] < 10);
+    //points are multiplexed together with anode 0 and 1:
+    bool show_point = (anode_idx == 0 || anode_idx == 1) && point_vals[anode_idx];
 
     unsigned long numProcessHighStart = micros();
     if (show_num) {
-        numOut(nums[3 - anode_idx]); //important NOT to set the numOut when there's no need - at high framerates it confuses the russian and causes microblinks on the off lamp
+        numOut(nums[5 - anode_idx]); //important NOT to set the numOut when there's no need - at high framerates it confuses the russian and causes microblinks on the off lamp
         digitalWrite( OUT_ANODES[anode_idx], HIGH );
     }
     if (show_point) {
-        digitalWrite( OUT_POINTS[anode_idx / 2], HIGH );
+        digitalWrite( OUT_POINTS[anode_idx], HIGH );
     }
     unsigned long numProcessHighEnd = micros();
-    unsigned int finalDelay = (bright_times[3 - anode_idx]) - (numProcessHighEnd - numProcessHighStart);
-    if (finalDelay > bright_times[3 - anode_idx]) {
+    unsigned int finalDelay = (bright_times[5 - anode_idx]) - (numProcessHighEnd - numProcessHighStart);
+    if (finalDelay > bright_times[5 - anode_idx]) {
         finalDelay = 0;
     }
 //    delayMicroseconds(bright_times[3 - anode_idx]);
@@ -112,11 +125,11 @@ void multiplexDigit(byte anode_idx)
         digitalWrite( OUT_ANODES[anode_idx], LOW );
     }
     if (show_point) {
-        digitalWrite( OUT_POINTS[anode_idx / 2], LOW );
+        digitalWrite( OUT_POINTS[anode_idx], LOW );
     }
     unsigned long numProcessLowEnd = micros();
-    finalDelay = (dim_times[3 - anode_idx]) - (numProcessLowEnd - numProcessLowStart);
-    if (finalDelay > dim_times[3 - anode_idx]) {
+    finalDelay = (dim_times[5 - anode_idx]) - (numProcessLowEnd - numProcessLowStart);
+    if (finalDelay > dim_times[5 - anode_idx]) {
         finalDelay = 0;
     }
 //    delayMicroseconds(dim_times[3 - anode_idx]);
@@ -129,18 +142,21 @@ void multiplexDigit(byte anode_idx)
  */
 void doIntro()
 {
+    //MUST be divisible by any possible DIGITS_USED!
     short frames = 600;
+
     short frames_2 = frames/2;
-    short frames_8 = frames/8;
+    short frames_2digs = frames / (DIGITS_USED * 2);
+
     for (short i = 0; i < frames; i++) {
-        for (byte j = 0; j < 4; j++) {
-            if (i == j*frames_8) {
+        for (byte j = 0; j < DIGITS_USED; j++) {
+            if (i == j * frames_2digs) {
                 nums[j] = 6;
             }
             if (i == j*frames_2) {
                 point_vals[1-j] = true;
             }
-            float booblator = (float)(i - j*frames_8);
+            float booblator = (float)(i - j * frames_2digs);
             if (booblator < 1)
                 booblator = 1.0;
             else if (booblator > (float)frames_2)
@@ -170,6 +186,11 @@ byte handleInput (byte in_byte)
 //    Serial.print(":");
 //    Serial.println(in_byte & 0x0F);
         curr_lamp_idx = (in_byte & 0x70) >> 4;
+        if (curr_lamp_idx >= DIGITS_USED) {
+            //digit above the number of digits used is not allowed
+            return RESP_FAIL;
+        }
+
         nums_buffer[curr_lamp_idx] = in_byte & 0x0F;
 
         return RESP_SUCCESS;
@@ -226,9 +247,9 @@ void handleNewFrame()
 {
     memcpy(point_vals, point_vals_buffer, 2*sizeof(bool));
     memcpy(point_vals_buffer, points_off, 2*sizeof(bool));
-    memcpy(nums, nums_buffer,4*sizeof(byte));
-    memcpy(nums_buffer, fail_nums, 4*sizeof(byte));
-    for (byte i = 0; i < 4; i++) {
+    memcpy(nums, nums_buffer,MAX_DIGITS_USED*sizeof(byte));
+    memcpy(nums_buffer, fail_nums, MAX_DIGITS_USED*sizeof(byte));
+    for (byte i = 0; i < MAX_DIGITS_USED; i++) {
         float multiplier = pow( (float)(dimmer_buffer[i] + 1)/16.0, DIMMING_CURVE_POWER );
         bright_times[i] =(short) ((float)FRAME_US * multiplier);
         dim_times[i] = (short) ((float)FRAME_US * ( 1 - multiplier ));
@@ -236,7 +257,7 @@ void handleNewFrame()
 //      Serial.println(dim_times[i]);
     }
 //    Serial.println("-");
-    memcpy(dimmer_buffer, dimmer_defaults, 4*sizeof(byte));
+    memcpy(dimmer_buffer, dimmer_defaults, MAX_DIGITS_USED*sizeof(byte));
     curr_lamp_idx = 0;
 }
 
@@ -256,7 +277,7 @@ void setup() {
     digitalWrite(STATUS, LOW);
 
     //lamps init
-    for (byte i = 0; i < 4; i++) {
+    for (byte i = 0; i < MAX_DIGITS_USED; i++) {
         pinMode( OUT_ANODES[i], OUTPUT );
         digitalWrite( OUT_ANODES[i], LOW );
         nums[i] = 15;
@@ -306,23 +327,13 @@ void setup() {
 }
 
 void loop() {
-
-    //points on-off
-
-    //digit0 on-off
-    multiplexDigit(0);
-    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
-
-    //digit1 on-off
-    multiplexDigit(1);
-    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
-
-    //digit2 on-off
-    multiplexDigit(2);
-    delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
-
-    //digit3 on-off
-    multiplexDigit(3);
+    //digits & points on-off
+    for (short i = 0; i < DIGITS_USED - 1; i++) {
+        multiplexDigit(i);
+        delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
+    }
+    //last digit treated separately due to adaptive delay afterwards
+    multiplexDigit(DIGITS_USED - 1);
 
     unsigned long newFrameProcessStart = micros();
     if (new_frame) {
@@ -343,7 +354,4 @@ void loop() {
 //    handleInput(CMD_NUM2 | 2);
 //    handleInput(CMD_NUM3 | 3);
 //    handleInput(CMD_FIN);
-
-    delayMicroseconds(FRAME_US+AFTER_IMAGE_US);
-    delayMicroseconds(FRAME_US+AFTER_IMAGE_US);
 }
