@@ -79,6 +79,9 @@ byte curr_lamp_idx = 0;
 
 volatile bool new_frame = false;
 
+//debug
+short current_frame = 0;
+
 
 /**
  * Renders given number
@@ -324,13 +327,19 @@ void setup() {
 }
 
 void loop() {
+    //debug
+    short digits_used = 4;
+    if (current_frame % 400 > 200) {
+        digits_used = 6;
+    }
+
     //digits & points on-off
-    for (short i = 0; i < DIGITS_USED - 1; i++) {
+    for (short i = 0; i < digits_used - 1; i++) {
         multiplexDigit(i);
         delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
     }
     //last digit treated separately due to adaptive delay afterwards
-    multiplexDigit(DIGITS_USED - 1);
+    multiplexDigit(digits_used - 1);
 
     unsigned long newFrameProcessStart = micros();
     if (new_frame) {
@@ -351,4 +360,7 @@ void loop() {
 //    handleInput(CMD_NUM2 | 2);
 //    handleInput(CMD_NUM3 | 3);
 //    handleInput(CMD_FIN);
+
+    //debug
+    current_frame++;
 }
