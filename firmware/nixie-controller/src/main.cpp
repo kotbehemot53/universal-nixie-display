@@ -125,10 +125,10 @@ void multiplexDigit(byte anode_idx)
     }
     unsigned long numProcessHighEnd = micros();
     unsigned int finalDelay = (bright_times[anode_idx]) - (numProcessHighEnd - numProcessHighStart);
-    if (finalDelay > bright_times[anode_idx]) {
-        finalDelay = 0;
+    if (finalDelay > bright_times[anode_idx]) { //a way to check < 0 (unsigned numbers!) - both for overflow & too long processing
+        finalDelay = 1;
     }
-//    delayMicroseconds(bright_times[3 - anode_idx]);
+//    delayMicroseconds(bright_times[anode_idx]);
     delayMicroseconds(finalDelay);
 //    Serial.println(String("a: ") + String(finalDelay));
 
@@ -148,10 +148,10 @@ void multiplexDigit(byte anode_idx)
     }
     unsigned long numProcessLowEnd = micros();
     finalDelay = (dim_times[anode_idx]) - (numProcessLowEnd - numProcessLowStart);
-    if (finalDelay > dim_times[anode_idx]) {
-        finalDelay = 0;
+    if (finalDelay > dim_times[anode_idx]) { //a way to check < 0 (unsigned numbers!) - both for overflow & too long processing
+        finalDelay = 1;
     }
-//    delayMicroseconds(dim_times[3 - anode_idx]);
+//    delayMicroseconds(dim_times[anode_idx]);
     delayMicroseconds(finalDelay);
 //    Serial.println(String("b: ") + String(finalDelay));
 }
@@ -404,10 +404,15 @@ void loop() {
         new_frame = false;
     }
     unsigned long newFrameProcessEnd = micros();
+    unsigned short lastDelay = AFTER_IMAGE_US - (newFrameProcessEnd - newFrameProcessStart);
+    if (lastDelay > AFTER_IMAGE_US) { //a way of checking if < 0 (it's unsigned!)
+        lastDelay = 1;
+    }
 
     //shortening the final afterimage delay to take varying frame length into account (new_frame section
     //   happens only sometimes)
-    delayMicroseconds(AFTER_IMAGE_US - (newFrameProcessEnd - newFrameProcessStart)); //Afterimage occurs below 300 us
+//    delayMicroseconds(AFTER_IMAGE_US - (newFrameProcessEnd - newFrameProcessStart)); //Afterimage occurs below 300 us
+    delayMicroseconds(lastDelay);
 
 //    Serial.println(String(newFrameProcessEnd - newFrameProcessStart));
 
