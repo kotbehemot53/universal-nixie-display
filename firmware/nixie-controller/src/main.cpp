@@ -26,6 +26,7 @@ const byte CMD_NUM = 0x80;
 //regular commands
 const byte CMD_OFF = 0x10; //turn the lamps off
 const byte CMD_ON = 0x11; //turn the lamps on
+const byte CMD_INTRO_ON = 0x12; //turn the intro on
 const byte CMD_FIN = 0x20; //loads number and dimming values from buffers to output (renders new frame)
 const byte CMD_NOOP = 0x30;
 const byte CMD_START = 0x40; //currently unused - works as NOOP
@@ -86,8 +87,11 @@ byte curr_r_point_idx = 0;
 
 volatile bool new_frame = false;
 
+//in the beginning, intro is on
+bool intro_mode = true;
+
 //debug
-//unsigned short debug_current_frame = 0;
+unsigned long current_frame_no = 0;
 
 /**
  * Renders given number
@@ -128,11 +132,11 @@ void multiplexDigit(byte anode_idx)
     unsigned long numProcessHighEnd = micros();
 
     //variable delay to compensate for unpredictable duration of the section above
-    unsigned int finalDelay = (bright_times[anode_idx]) - (numProcessHighEnd - numProcessHighStart);
-    if (finalDelay > bright_times[anode_idx]) { //a way to check < 0 (unsigned numbers!) - both for overflow & too long processing
-        finalDelay = 1;
+    unsigned int final_delay = (bright_times[anode_idx]) - (numProcessHighEnd - numProcessHighStart);
+    if (final_delay > bright_times[anode_idx]) { //a way to check < 0 (unsigned numbers!) - both for overflow & too long processing
+        final_delay = 1;
     }
-    delayMicroseconds(finalDelay);
+    delayMicroseconds(final_delay);
 
 
     unsigned long numProcessLowStart = micros();
@@ -151,58 +155,52 @@ void multiplexDigit(byte anode_idx)
     unsigned long numProcessLowEnd = micros();
 
     //variable delay to compensate for unpredictable duration of the section above
-    finalDelay = (dim_times[anode_idx]) - (numProcessLowEnd - numProcessLowStart);
-    if (finalDelay > dim_times[anode_idx]) { //a way to check < 0 (unsigned numbers!) - both for overflow & too long processing
-        finalDelay = 1;
+    final_delay = (dim_times[anode_idx]) - (numProcessLowEnd - numProcessLowStart);
+    if (final_delay > dim_times[anode_idx]) { //a way to check < 0 (unsigned numbers!) - both for overflow & too long processing
+        final_delay = 1;
     }
-    delayMicroseconds(finalDelay);
+    delayMicroseconds(final_delay);
 }
 
-/**
- * Renders the intro
- */
-void doIntro()
+void setupIntroValues()
 {
-    //MUST be divisible by any possible DIGITS_USED!
-    short frames = 600;
+    unsigned short frames_60 = 10;
+    unsigned short frames_2digs = 50;
+    unsigned short frames_2 = 300;
 
-    short frames_2 = frames/2;
-    short frames_2digs = frames / (DIGITS_USED * 2);
-    short frames_60 = frames / 60;
+    if (point_vals[0] == point_vals[1]) {
+        point_vals[0] = !point_vals[1];
+    }
+    if (current_frame_no % 100 == 0) {
+        point_vals[0] = !point_vals[0];
+        point_vals[1] = !point_vals[1];
+    }
 
-    for (short i = 0; i < frames; i++) {
-        for (byte j = 0; j < DIGITS_USED; j++) {
-            //right commas looped sweep
-            if (i % (DIGITS_USED * frames_60) == j * frames_60) {
-                for (byte k = 0; k < DIGITS_USED; k++) {
-                    if (k == j) {
-                        r_comma_vals[k] = true;
-                    } else {
-                        r_comma_vals[k] = false;
-                    }
+    for (byte j = 0; j < DIGITS_USED; j++) {
+        //right commas looped sweep
+        if (current_frame_no % (DIGITS_USED * frames_60) == j * frames_60) {
+            for (byte k = 0; k < DIGITS_USED; k++) {
+                if (k == j) {
+                    r_comma_vals[k] = true;
+                } else {
+                    r_comma_vals[k] = false;
                 }
             }
-            //6's on one by one
-            if (i == j * frames_2digs) {
-                nums[j] = 6;
-            }
-            //points on beginning and on half-time
-            if (i == j*frames_2) {
-                point_vals[j] = true;
-            }
-            //brightness gradual up
-            float booblator = (float)(i - j * frames_2digs);
-            if (booblator < 1)
-                booblator = 1.0;
-            else if (booblator > (float)frames_2)
-                booblator = (float)frames_2;
-            float multiplier = pow(booblator/(float)frames_2, 2.5);
-            bright_times[j] = multiplier * FRAME_US;
-            dim_times[j] = (1.0 - multiplier) * FRAME_US;
         }
-        loop();
+        //numbers on one by one
+        if ((current_frame_no >= j * frames_2digs) && (current_frame_no % 10 == 0)) {
+            nums[j] = random() % 10;
+        }
+        //brightness gradual up
+        float booblator = (float)(current_frame_no - j * frames_2digs);
+        if (booblator < 1)
+            booblator = 1.0;
+        else if (booblator > (float)frames_2)
+            booblator = (float)frames_2;
+        float multiplier = pow(booblator/(float)frames_2, 2.5);
+        bright_times[j] = multiplier * FRAME_US;
+        dim_times[j] = (1.0 - multiplier) * FRAME_US;
     }
-    Serial.println("intro done");
 }
 
 /**
@@ -210,6 +208,9 @@ void doIntro()
  */
 byte handleInput (byte in_byte)
 {
+    //we received a command, so we're serious now...
+    intro_mode = false;
+
     if ((in_byte & 0xF0) == CMD_START) {
         //unused now - same as NOOP
         return RESP_SUCCESS;
@@ -221,6 +222,12 @@ byte handleInput (byte in_byte)
     }
     if (in_byte == CMD_OFF) {
         digitalWrite(HV_ENABLE, LOW);
+
+        return RESP_SUCCESS;
+    }
+    if (in_byte == CMD_INTRO_ON) {
+        //...except if we don't want to be serious
+        intro_mode = true;
 
         return RESP_SUCCESS;
     }
@@ -333,13 +340,17 @@ void handleNewFrame()
 void debugSetABunchOfNumbers() {
     handleInput(CMD_START);
     handleInput(CMD_NUM | 0x00 | 1);
-    handleInput(CMD_DIMMER | 2);
+//    handleInput(CMD_DIMMER | 2);
     handleInput(CMD_NUM | 0x10 | 2);
-    handleInput(CMD_DIMMER | 2);
+//    handleInput(CMD_DIMMER | 2);
     handleInput(CMD_NUM | 0x20 | 3);
-    handleInput(CMD_DIMMER | 2);
-    handleInput(CMD_NUM | 0x30 | 6);
-    handleInput(CMD_DIMMER | 2);
+//    handleInput(CMD_DIMMER | 2);
+    handleInput(CMD_NUM | 0x30 | 4);
+//    handleInput(CMD_DIMMER | 2);
+    handleInput(CMD_NUM | 0x40 | 5);
+//    handleInput(CMD_DIMMER | 2);
+    handleInput(CMD_NUM | 0x50 | 6);
+//    handleInput(CMD_DIMMER | 2);
     handleInput(CMD_POINT | 0);
     handleInput(CMD_LAMP_POINT_R | 2);
     handleInput(CMD_LAMP_POINT_L | 2);
@@ -388,9 +399,6 @@ void setup() {
 
     Serial.begin(115200);
 
-    //intro
-    doIntro();
-
 //    statusBlink(2);
     Serial.println("hullo");
 
@@ -400,8 +408,13 @@ void setup() {
 }
 
 void loop() {
+
+    if (intro_mode) {
+        setupIntroValues();
+    }
+
     //digits & points on-off
-    for (short i = 0; i < DIGITS_USED - 1; i++) {
+    for (unsigned short i = 0; i < DIGITS_USED - 1; i++) {
         multiplexDigit(i);
         delayMicroseconds(AFTER_IMAGE_US); //Afterimage occurs below 300 us
     }
@@ -423,5 +436,5 @@ void loop() {
     delayMicroseconds(lastDelay);
 
     //debug
-//    debug_current_frame++;
+    current_frame_no++;
 }
