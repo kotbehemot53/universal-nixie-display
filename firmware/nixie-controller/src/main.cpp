@@ -86,6 +86,8 @@ byte curr_r_point_idx = 0;
 
 volatile bool new_frame = false;
 
+//debug
+//unsigned short debug_current_frame = 0;
 
 /**
  * Renders given number
@@ -124,13 +126,13 @@ void multiplexDigit(byte anode_idx)
         digitalWrite(OUT_POINTS[anode_idx], HIGH );
     }
     unsigned long numProcessHighEnd = micros();
+
+    //variable delay to compensate for unpredictable duration of the section above
     unsigned int finalDelay = (bright_times[anode_idx]) - (numProcessHighEnd - numProcessHighStart);
     if (finalDelay > bright_times[anode_idx]) { //a way to check < 0 (unsigned numbers!) - both for overflow & too long processing
         finalDelay = 1;
     }
-//    delayMicroseconds(bright_times[anode_idx]);
     delayMicroseconds(finalDelay);
-//    Serial.println(String("a: ") + String(finalDelay));
 
 
     unsigned long numProcessLowStart = micros();
@@ -147,13 +149,13 @@ void multiplexDigit(byte anode_idx)
         digitalWrite(OUT_LAMP_COMMAS[1], LOW);
     }
     unsigned long numProcessLowEnd = micros();
+
+    //variable delay to compensate for unpredictable duration of the section above
     finalDelay = (dim_times[anode_idx]) - (numProcessLowEnd - numProcessLowStart);
     if (finalDelay > dim_times[anode_idx]) { //a way to check < 0 (unsigned numbers!) - both for overflow & too long processing
         finalDelay = 1;
     }
-//    delayMicroseconds(dim_times[anode_idx]);
     delayMicroseconds(finalDelay);
-//    Serial.println(String("b: ") + String(finalDelay));
 }
 
 /**
@@ -210,7 +212,6 @@ byte handleInput (byte in_byte)
 {
     if ((in_byte & 0xF0) == CMD_START) {
         //unused now - same as NOOP
-//    Serial.println("strt");
         return RESP_SUCCESS;
     }
     if (in_byte == CMD_ON) {
@@ -246,10 +247,6 @@ byte handleInput (byte in_byte)
         return RESP_SUCCESS;
     }
     if (in_byte & CMD_NUM) {  //a number was sent
-//    Serial.print("num ");
-//    Serial.print((in_byte & 0x70) >> 4);
-//    Serial.print(":");
-//    Serial.println(in_byte & 0x0F);
         curr_lamp_idx = (in_byte & 0x70) >> 4;
         if (curr_lamp_idx >= DIGITS_USED) {
             //digit above the number of digits used is not allowed
@@ -261,15 +258,11 @@ byte handleInput (byte in_byte)
         return RESP_SUCCESS;
     }
     if ((in_byte & 0xF0) == CMD_FIN) {
-//    Serial.println("end");
         new_frame = true;
 
         return RESP_SUCCESS;
     }
     if ((in_byte & 0xF0) == CMD_NOOP) {
-//    Serial.print("noop: ");
-//    Serial.println(in_byte);
-
         return RESP_SUCCESS;
     }
     if ((in_byte & 0xF0) == CMD_POINT) {
@@ -322,10 +315,7 @@ void handleNewFrame()
         float multiplier = pow( (float)(dimmer_buffer[i] + 1)/16.0, DIMMING_CURVE_POWER );
         bright_times[i] =(short) ((float)FRAME_US * multiplier);
         dim_times[i] = (short) ((float)FRAME_US * ( 1 - multiplier ));
-//      Serial.println(bright_times[i]);
-//      Serial.println(dim_times[i]);
     }
-//    Serial.println("-");
     memcpy(dimmer_buffer, dimmer_defaults, MAX_DIGITS_USED*sizeof(byte));
     curr_lamp_idx = 0;
 }
@@ -339,6 +329,22 @@ void handleNewFrame()
 //        delay(100);
 //    }
 //}
+
+void debugSetABunchOfNumbers() {
+    handleInput(CMD_START);
+    handleInput(CMD_NUM | 0x00 | 1);
+    handleInput(CMD_DIMMER | 2);
+    handleInput(CMD_NUM | 0x10 | 2);
+    handleInput(CMD_DIMMER | 2);
+    handleInput(CMD_NUM | 0x20 | 3);
+    handleInput(CMD_DIMMER | 2);
+    handleInput(CMD_NUM | 0x30 | 6);
+    handleInput(CMD_DIMMER | 2);
+    handleInput(CMD_POINT | 0);
+    handleInput(CMD_LAMP_POINT_R | 2);
+    handleInput(CMD_LAMP_POINT_L | 2);
+    handleInput(CMD_FIN);
+}
 
 void setup() {
     //status led init
@@ -387,6 +393,10 @@ void setup() {
 
 //    statusBlink(2);
     Serial.println("hullo");
+
+    //debug
+//    debugSetABunchOfNumbers();
+//    handleInput(CMD_OFF);
 }
 
 void loop() {
@@ -404,22 +414,14 @@ void loop() {
         new_frame = false;
     }
     unsigned long newFrameProcessEnd = micros();
+
+    //variable delay to compensate for unpredictable duration of the above section (happens only sometimes)
     unsigned short lastDelay = AFTER_IMAGE_US - (newFrameProcessEnd - newFrameProcessStart);
-    if (lastDelay > AFTER_IMAGE_US) { //a way of checking if < 0 (it's unsigned!)
+    if (lastDelay > AFTER_IMAGE_US) { //a way of checking if < 0 (it's unsigned!) - both for overflow and for too long duration above
         lastDelay = 1;
     }
-
-    //shortening the final afterimage delay to take varying frame length into account (new_frame section
-    //   happens only sometimes)
-//    delayMicroseconds(AFTER_IMAGE_US - (newFrameProcessEnd - newFrameProcessStart)); //Afterimage occurs below 300 us
     delayMicroseconds(lastDelay);
 
-//    Serial.println(String(newFrameProcessEnd - newFrameProcessStart));
-
-//DEBUG
-//    handleInput(CMD_START);
-//    handleInput(CMD_NUM1 | 1);
-//    handleInput(CMD_NUM2 | 2);
-//    handleInput(CMD_NUM3 | 3);
-//    handleInput(CMD_FIN);
+    //debug
+//    debug_current_frame++;
 }
