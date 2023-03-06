@@ -1,9 +1,12 @@
 [submodule "und-vfd-controller"]
 	path = und-vfd-controller
 	url = https://github.com/kotbehemot53/und-vfd-controller.git
+	branch = master
 [submodule "und-nixie-controller"]
 	path = und-nixie-controller
 	url = git@github.com:kotbehemot53/und-nixie-controller.git
+	branch = master
 [submodule "und-raspberry"]
 	path = und-raspberry
 	url = git@github.com:kotbehemot53/und-raspberry.git
+	branch = master
