@@ -21,4 +21,5 @@ See the `CMD_` constants in `main.cpp` and their comments.
 TODO
 ----
 
-- refactor the code based on the current VFD Display Firmware architecture ().
+- refactor the code based on the current VFD Display Firmware architecture
+  (https://github.com/kotbehemot53/und-vfd-controller).
