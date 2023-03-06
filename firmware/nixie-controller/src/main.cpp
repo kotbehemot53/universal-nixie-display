@@ -394,7 +394,7 @@ void setup() {
     digitalWrite(STATUS, HIGH);
 
     //communications init
-    Wire.begin(0x4);
+    Wire.begin(0x4); // TODO: move the address to a const
     Wire.onReceive(receiveEvent); // register event
 
     Serial.begin(115200);
