@@ -914,7 +914,7 @@
 			(uuid "58c005b6-6e50-4fc2-9acb-ce195450e776")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1183,7 +1183,7 @@
 			(uuid "575a00a1-dec2-49af-ab3a-df281627a881")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2029,7 +2029,7 @@
 			(uuid "30f4a382-eb1a-4ef7-aafb-e7d18f750542")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2636,7 +2636,7 @@
 			(uuid "851a5144-622e-4e9b-84aa-b2177ea53c92")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -2905,7 +2905,7 @@
 			(uuid "fd0bfc2c-c242-4c45-a2ce-a3cfcb0ffc5b")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3751,7 +3751,7 @@
 			(uuid "8fc1ba65-23ed-41f2-8174-a972dd774353")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -4898,7 +4898,7 @@
 			(uuid "119cd2ee-6025-406f-acfc-adcac3592135")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-28_W7.62mm.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-28_W7.62mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5726,7 +5726,7 @@
 			(uuid "4c436fb9-5de1-4241-82c9-60c46b745983")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -5995,7 +5995,7 @@
 			(uuid "fbe3d599-804b-4434-a0f7-d1228fca0003")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -6245,7 +6245,7 @@
 			(uuid "d5ca9d6f-41c3-4170-9464-97fcc7d1575c")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -6443,7 +6443,7 @@
 			(uuid "5362a7bb-6a5c-4582-8a84-dd179357b30c")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -6996,7 +6996,7 @@
 			(uuid "26f5e4f4-1c80-4c12-a393-3374b1b95410")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7258,7 +7258,7 @@
 			(uuid "ef0448bc-4f6c-4a2b-b2c1-bcb39e98b287")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -7820,7 +7820,7 @@
 			(uuid "5d0d7524-b89d-4f6c-9d44-8457b02a6678")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -8082,7 +8082,7 @@
 			(uuid "5eaefe45-4377-4f72-b5ff-c30dbfcff29f")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -8351,7 +8351,7 @@
 			(uuid "9a2c90c4-d108-490c-a4ef-f90839b42fec")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -8902,7 +8902,7 @@
 			(uuid "028ac1b4-e1ed-461b-997d-aadb6b1ef972")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -9160,7 +9160,7 @@
 			(uuid "03c52c21-9f81-4a19-9890-eb9cfb396402")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -9426,7 +9426,7 @@
 			(uuid "8a06555e-37b5-4e52-aed5-4db5d56c9572")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Crystal.3dshapes/Crystal_HC49-4H_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Crystal.3dshapes/Crystal_HC49-4H_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -9936,7 +9936,7 @@
 			(uuid "ad3d2496-9d91-4c3e-a06b-0ce2ea4713c0")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -10134,7 +10134,7 @@
 			(uuid "a104f8b7-5461-444e-b965-b1e6732ac99f")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -10619,7 +10619,7 @@
 			(uuid "0ccdb2ff-af2a-433c-990e-e25fac040a27")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -11185,7 +11185,7 @@
 			(uuid "76329ebf-362f-458d-bcae-6914e50b808f")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -11458,7 +11458,7 @@
 			(uuid "03697bdb-be93-4e64-898e-2a285d8a1b68")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -11910,7 +11910,7 @@
 			(uuid "365ed274-ece5-479d-b394-a22ea72d34fa")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -12168,7 +12168,7 @@
 			(uuid "0a21e7d0-6c69-4634-b2b6-f0d0223d8049")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -12866,7 +12866,7 @@
 			(uuid "2168b05f-acf6-44d7-a1f6-3db3d25175d7")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-16_W7.62mm.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-16_W7.62mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -13307,7 +13307,7 @@
 			(uuid "be15977e-08c4-4134-888d-97385a0345d6")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -13858,7 +13858,7 @@
 			(uuid "1e0fa736-c93b-4f04-ac49-f38ac4164c62")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -14116,7 +14116,7 @@
 			(uuid "7e9e8112-44fc-4216-ac01-88d07c366d80")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -14667,7 +14667,7 @@
 			(uuid "bd70cb30-fb80-4819-8695-036c532484ae")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -14920,7 +14920,7 @@
 			(uuid "2ef496d7-ab49-4982-9d58-a0c76b781f8d")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_TH_Tactile_Omron_B3F-10xx.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_TH_Tactile_Omron_B3F-10xx.step"
 			(hide yes)
 			(offset
 				(xyz 0 0 0)
@@ -15497,7 +15497,7 @@
 			(uuid "439e3f45-e1bb-4f24-bea1-334b47ca4202")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -16381,7 +16381,7 @@
 			(uuid "8ad0abdd-510b-4c4f-a57a-6c5afce9c440")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -16607,7 +16607,7 @@
 			(uuid "6f5f0c33-b595-427a-8f2d-635a21b1d521")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/LED_THT.3dshapes/LED_D3.0mm.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/LED_THT.3dshapes/LED_D3.0mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -16966,7 +16966,7 @@
 			(uuid "4e3ce3b2-0062-4894-90c9-d123f1516483")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Potentiometer_THT.3dshapes/Potentiometer_Bourns_3386F_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -17530,7 +17530,7 @@
 			(uuid "a8c5d1ea-a47b-440a-a65e-f466835e37db")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x07_P2.54mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -18140,7 +18140,7 @@
 			(uuid "f0ff863e-3f41-4098-870d-552a521f55f2")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -18361,7 +18361,7 @@
 			(uuid "a0b9f050-1be7-488f-85b2-08f372f83ded")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -18582,7 +18582,7 @@
 			(uuid "025baa4e-9c0e-4171-ba18-c81707277562")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -19494,7 +19494,7 @@
 			(uuid "d10ed321-fe4a-4b2e-8c4a-eae42c56c9ad")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -19938,7 +19938,7 @@
 			(uuid "375c7386-b2fa-41e4-9578-da51d4d7b33c")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -20382,7 +20382,7 @@
 			(uuid "554fb619-bd23-4512-92e0-1256ad13b38d")
 		)
 		(embedded_fonts no)
-		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.wrl"
+		(model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.step"
 			(offset
 				(xyz 0 0 0)
 			)
