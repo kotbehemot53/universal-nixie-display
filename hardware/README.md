@@ -67,7 +67,9 @@ left alone so nothing inside the design files had to be touched apart from 3D mo
 |----------------------------------|-------------------------|----------------------------------------------------|
 | `kicad/nixiecock1`               | `nixie-board`           | "Board A"                                          |
 | `kicad/nixiecockB`               | `vfd-board`             | "Board B"                                          |
-| `kicad/pihat/pihat` `pihat_smd.*`| `pi-hat`                | SMD version, current                               |
+| `kicad/pihat/pihat` `pihat_smd.kicad_sch/.kicad_pro` | `pi-hat`  | SMD version, current schematic                     |
+| `kicad/pihat/pihat` `pihat_smd-rounded-blah.kicad_pcb` | `pi-hat.kicad_pcb` | current layout (rounded tracks), the one that was fabbed |
+| `kicad/pihat/pihat` `pihat_smd.kicad_pcb` | `pi-hat/variants/pi-hat_unrounded` | same layout before track rounding      |
 | `kicad/pihat/pihat` `pihat.*`    | `pi-hat/variants/pi-hat-tht` | older THT version, has its own schematic      |
 | `kicad/IN-14Board`               | `sockets/in14`          | file names unchanged (`in14board.*`)               |
 | `kicad/z573mBoard`               | `sockets/z573m`         | file names unchanged (`z573mBoard.*`)              |
@@ -76,8 +78,7 @@ left alone so nothing inside the design files had to be touched apart from 3D mo
 
 Fabrication files vs. layouts (from file timestamps, verify before reusing):
 
-- `pi-hat/fab/gerber5.zip` was generated from `variants/pi-hat_rounded-blah.kicad_pcb`, not from
-  `pi-hat.kicad_pcb`.
+- `pi-hat/fab/gerber5.zip` matches `pi-hat.kicad_pcb` (the rounded-track layout).
 - `nixie-board/fab/gerber_A2`, `gerber_A3` and `vfd-board/fab/gerber_B1..B3` predate the last PCB
   edits of those boards; treat the highest number as the last one ordered.
 - `sockets/in14/fab/gerbers7.zip` and `sockets/z573m/fab/gerber3.zip` match the current PCBs.
