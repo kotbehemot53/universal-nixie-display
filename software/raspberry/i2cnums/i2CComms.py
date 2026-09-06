@@ -1,4 +1,5 @@
 from smbus import SMBus
+import time
 
 bus = SMBus(0) # indicates /dev/ic2-0
 def sendByte(addr, byteToSend, cnt = 0):

@@ -6,6 +6,8 @@ import time
 import threading
 import random
 import datetime
+from urllib.request import urlopen
+import json
 
 import RPi.GPIO as GPIO
 
@@ -19,13 +21,15 @@ btnUp = Button(17)
 
 currentBrightness = 15
 
-availableModes = ["time", "count", "intro"]
+availableModes = ["time", "count", "intro", "cpu temp", "gpu temp", "cpu gpu"]
 currentMode = "time"
 modeChanged = False
 # modeChangedAt = None
 modeChangedAt = int(time.time())
 vfdDimmed = False
 poisonReturn = False
+prevCpuTempStr = "000000"
+prevGpuTempStr = "000000"
 
 
 def calculateTime():
@@ -39,6 +43,43 @@ def calculateTime():
     points = [int(secstr[1]) % 2]
 
     return [newTimestr, [], commasR, points]
+
+def calculateCpuTemp():
+    global prevCpuTempStr
+    commasR = [3]
+    secstr = time.strftime('%S', time.localtime())
+    points = [int(secstr[1]) % 2]
+
+    try:
+        json_url = urlopen('http://192.168.1.116:8085/data.json', timeout=1) #todo temp stuff
+        data = json.loads(json_url.read())
+        tempStrRaw = data["Children"][0]["Children"][1]["Children"][3]["Children"][0]["Value"]
+        newTempStr = "  " + tempStrRaw[:2] + tempStrRaw[3:4] + "0"
+        prevCpuTempStr = newTempStr
+    except:
+        newTempStr = prevCpuTempStr
+
+    return [newTempStr, [], commasR, points]
+
+def calculateGpuTemp(lowDisplay=False):
+    global prevGpuTempStr
+    commasR = [3]
+    secstr = time.strftime('%S', time.localtime())
+    points = [int(secstr[1]) % 2]
+
+    try:
+        json_url = urlopen('http://192.168.1.116:8085/data.json', timeout=1) #todo temp stuff
+        data = json.loads(json_url.read())
+        tempStrRaw = data["Children"][0]["Children"][3]["Children"][2]["Children"][0]["Value"]
+        if (lowDisplay):
+            newTempStr = "gpu " + tempStrRaw[:2] + " c"
+        else:
+            newTempStr = "  " + tempStrRaw[:2] + tempStrRaw[3:4] + "0"
+        prevGpuTempStr = newTempStr
+    except:
+        newTempStr = prevGpuTempStr
+
+    return [newTempStr, [], commasR, points]
 
 
 def calculateCount(initTime):
@@ -111,7 +152,7 @@ def sendDisplayedNumber(displayedNumber, commasL, commasR, points):
     piToNixie.sendEnd()
 
 
-def sendModeToVFD(mode):
+def sendTextToVFD(mode, dim=True):
     global vfdDimmed
 
     modeBytes = bytes(" " + mode, "ascii")
@@ -122,7 +163,8 @@ def sendModeToVFD(mode):
     # piToVFD.set # TODO: command needed to break fade-in/out here (set constant mode at max brightness)!
     piToVFD.sendMultiFinish()
 
-    vfdDimmed = False
+    if dim:
+        vfdDimmed = False
 
 
 def dimVFDDigit(which):
@@ -213,7 +255,7 @@ try:
 
     piToVFD.sendIntroOff()  # TODO due to a bug in vfd firmware we must wait a bit for the intro to ACTUALLY go off
     time.sleep(1)
-    sendModeToVFD(currentMode)
+    sendTextToVFD(currentMode)
 
     while (1):
         bgn = time.time()
@@ -226,6 +268,17 @@ try:
         elif currentMode == "count":
             [newDisplayedNumber, newCommasL, newCommasR, newPoints] = calculateCount(modeChangedAt)
             introInProgress = False
+        elif currentMode == "cpu temp":
+            [newDisplayedNumber, newCommasL, newCommasR, newPoints] = calculateCpuTemp()
+            introInProgress = False
+        elif currentMode == "gpu temp":
+            [newDisplayedNumber, newCommasL, newCommasR, newPoints] = calculateGpuTemp()
+            introInProgress = False
+        elif currentMode == "cpu gpu":
+            [newDisplayedNumber, newCommasL, newCommasR, newPoints] = calculateCpuTemp()
+            if vfdDimmed:
+                sendTextToVFD(calculateGpuTemp(True)[0], False)
+            introInProgress = False
         elif currentMode == "intro":
             # we wanna run the intro only once
             if not (introInProgress):
@@ -236,7 +289,7 @@ try:
 
         if (modeChanged):
             modeChanged = False
-            sendModeToVFD(currentMode)
+            sendTextToVFD(currentMode)
 
         if (not (vfdDimmed) and (modeChangedAt < int(time.time()) - 10)):
             dimVFD()
@@ -263,7 +316,7 @@ try:
 
         # print("Time left: " + str(0.05 - (time.time() - bgn)))
         # do the loop every 50 milliseconds
-        sleepTime = 0.05 - (time.time() - bgn)
+        sleepTime = 0.1 - (time.time() - bgn)
         time.sleep(sleepTime if sleepTime > 0 else 0)
 
 finally:
