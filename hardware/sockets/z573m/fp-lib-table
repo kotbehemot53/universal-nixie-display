@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Nixiecock1")(type "KiCad")(uri "${KIPRJMOD}/../../lib/Nixiecock1.pretty")(options "")(descr ""))
+  (lib (name "nixietubes-western")(type "Eagle")(uri "${KIPRJMOD}/../../lib/nixietubes-western.lbr")(options "")(descr ""))
+)

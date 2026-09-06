@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name "ass")(type "KiCad")(uri "${KIPRJMOD}/ass.kicad_sym")(options "")(descr ""))
+  (lib (name "dk_Battery-Holders-Clips-Contacts")(type "Legacy")(uri "H:/_Moje_dydy/Documents/KiCad/6.0/libraries/digikey-kicad-library/digikey-symbols/dk_Battery-Holders-Clips-Contacts.lib")(options "")(descr ""))
+  (lib (name "dk_Slide-Switches")(type "Legacy")(uri "H:/_Moje_dydy/Documents/KiCad/6.0/libraries/digikey-kicad-library/digikey-symbols/dk_Slide-Switches.lib")(options "")(descr ""))
+)

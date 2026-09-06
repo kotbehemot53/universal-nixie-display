@@ -1,0 +1,69 @@
+Hardware
+========
+
+KiCad projects for all boards of the Universal Nixie Display. Files are KiCad 6/7 format
+(`kicad_sch` version 20211123 / 20230121, `kicad_pcb` version 20211014 / 20221018), open them with
+KiCad 7 or newer and let it upgrade the format when you first save.
+
+```
+nixie-board/    top board: up to 6 nixies + 2 neons, ATmega328P, I2C slave 0x4
+vfd-board/      bottom board: IV-18 VFD, ATmega328P, I2C slave 0x5
+pi-hat/         Raspberry Pi hat: power in, I2C master, buttons / knobs, power button
+sockets/
+  in14/         IN-14 nixie socket board (plugs into nixie-board)
+  z573m/        Z573M nixie socket board (plugs into nixie-board)
+  neon/         neon lamp board (plugs into nixie-board)
+lib/            shared symbol / footprint / 3D model libraries (see lib/README.md)
+```
+
+Every board directory has the same shape:
+
+- `<board>.kicad_pro / .kicad_sch / .kicad_pcb` - the current design,
+- `<board>-bom.csv` - BOM exported from the schematic (where one existed),
+- `sym-lib-table` / `fp-lib-table` - project library tables, all pointing into `../lib` (or `../../lib`
+  for the socket boards) via `${KIPRJMOD}`,
+- `fab/` - gerber zips that were actually sent to a fab house, kept as-is for reference,
+- `variants/` - alternative PCB layouts of the same schematic (autorouter pre-fills, different track
+  styles, earlier revisions). They are standalone `.kicad_pro` + `.kicad_pcb` pairs, open them directly.
+  They are kept for reference only, the file next to the `.kicad_sch` is the current one,
+- `images/` - schematic exports and 3D renders.
+
+Symbols and footprints are embedded in the schematic / PCB files, so the boards open and render even if
+a library entry is missing. The library tables only matter when you want to update a part from its
+library.
+
+
+Naming history
+--------------
+
+The boards were renamed when the projects were moved into this repository. Old names still appear in
+title blocks, net names and library nicknames (`Nixiecock1`, `nixieCockB`), which were intentionally
+left alone so nothing inside the design files had to be touched apart from 3D model paths.
+
+| Old project (piclock repo)       | Here                    | Notes                                              |
+|----------------------------------|-------------------------|----------------------------------------------------|
+| `kicad/nixiecock1`               | `nixie-board`           | "Board A"                                          |
+| `kicad/nixiecockB`               | `vfd-board`             | "Board B"                                          |
+| `kicad/pihat/pihat` `pihat_smd.*`| `pi-hat`                | SMD version, current                               |
+| `kicad/pihat/pihat` `pihat.*`    | `pi-hat/variants/pi-hat-tht` | older THT version, has its own schematic      |
+| `kicad/IN-14Board`               | `sockets/in14`          | file names unchanged (`in14board.*`)               |
+| `kicad/z573mBoard`               | `sockets/z573m`         | file names unchanged (`z573mBoard.*`)              |
+| `kicad/neonBoard`                | `sockets/neon`          | file names unchanged (`neonBoard.*`)               |
+| `kicad/xprmnt`                   | `../scratch/kicad-experiments` | was gitignored before                       |
+
+Fabrication files vs. layouts (from file timestamps, verify before reusing):
+
+- `pi-hat/fab/gerber5.zip` was generated from `variants/pi-hat_rounded-blah.kicad_pcb`, not from
+  `pi-hat.kicad_pcb`.
+- `nixie-board/fab/gerber_A2`, `gerber_A3` and `vfd-board/fab/gerber_B1..B3` predate the last PCB
+  edits of those boards; treat the highest number as the last one ordered.
+- `sockets/in14/fab/gerbers7.zip` and `sockets/z573m/fab/gerber3.zip` match the current PCBs.
+
+
+What was dropped on import
+--------------------------
+
+Regenerable or per-user files were not carried over: `*-backups/`, `.history/`, `fp-info-cache`,
+`*.kicad_prl`, `*.kicad_sch-bak`, `*.xml` netlists, lock files, unzipped gerber directories that also
+existed as zips, and the vendor library zips (`KiCadLibs-master.zip`, SamacSys `LIB_*.zip`) whose
+relevant content is now in `lib/`.

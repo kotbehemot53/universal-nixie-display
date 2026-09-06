@@ -1,0 +1,32 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NE555DR
+D Single Precision Timer
+K
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP SFH619A
+D Vishay SFH619A DC Input Photodarlington Output Optocoupler, Through Hole, 4-Pin DIP
+K
+F https://www.vishay.com/docs/83674/sfh619a.pdf
+$ENDCMP
+#
+$CMP 3386F-1-501LF
+D Trimmer Resistors - Through Hole 3/8IN 500 OHMS 10% 0.5Watts Square
+K
+F https://www.bourns.com/docs/Product-Datasheets/3386.pdf
+$ENDCMP
+#
+$CMP Raspberry_Pi_Zero_W__v1.3_
+D Raspberry Pi Zero W (v1.3) Single-board Computers
+K
+F https://cdn.sparkfun.com/assets/learn_tutorials/6/7/6/PiZero_1.pdf
+$ENDCMP
+#
+$CMP TL1105CF160Q
+D Tactile Switches 6X6X8MM 160GF
+K
+F https://componentsearchengine.com/Datasheets/1/TL1105CF160Q.pdf
+$ENDCMP
+#End Doc Library
