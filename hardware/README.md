@@ -45,7 +45,11 @@ libraries renamed or removed since the boards were drawn, not from this reposito
 |------------------------------------------------------|------------------------|-----------------------------------------------------------|
 | `Button_Switch_THT:SW_TH_Tactile_Omron_B3F-10xx`     | nixie-board, vfd-board | split into `SW_TH_Tactile_Omron_B3F-100x` / `-102x` / ... |
 | `Symbol:Symbol_HighVoltage_Type2_CopperTop_VerySmall`| nixie-board, vfd-board | removed, only `Symbol_HighVoltage_Triangle_*` remain      |
-| `Connector:Conn_01x02_Male` / `_Female` / `Conn_01x03_Male` | nixie-board, vfd-board | moved to `Connector_Generic`                        |
+| `Connector:Conn_01x02_Male` / `_Female` / `Conn_01x03_Male` / `Conn_01x07_Female` | nixie-board, vfd-board, sockets | moved to `Connector_Generic`     |
+| `Device:Q_NMOS_SGD`, `Device:Q_NPN_CBE`             | pi-hat-tht variant     | replaced by `Q_NMOS_GSD` / `Q_NPN_BCE` pin-order variants |
+
+The `variants/` directories carry their own `fp-lib-table` / `sym-lib-table` (same entries, one `../`
+deeper), because KiCad treats whatever directory the `.kicad_pro` sits in as the project root.
 
 The embedded copies still work, so nothing needs to change unless a part is re-placed from the library.
 "Does not match its copy in the library" warnings are expected for the same reason (embedded 2022/2023
