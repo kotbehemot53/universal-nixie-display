@@ -18,6 +18,11 @@ Library nicknames match what the board files reference, do not rename them witho
 It is vendored here so the project tables resolve it on their own; if your global table still has an
 entry with the same nickname, KiCad will prefer the project one.
 
+`SamacSys_Parts.pretty/RASPBERRYPIZEROWV13.kicad_mod` had `(size 2.8 0)` on its four mounting-hole
+pads. KiCad 10 refuses the file, and one unreadable file makes the whole `.pretty` fail to load, so the
+pad size was fixed to `2.8 2.8`. If you add SamacSys downloads here, check them with
+`kicad-cli fp export svg -o /tmp/x SamacSys_Parts.pretty` before committing.
+
 The 3D models in `SamacSys_Parts.3dshapes/` are referenced from the PCBs as
 `${KIPRJMOD}/../lib/SamacSys_Parts.3dshapes/<file>`; standard KiCad models use `${KICAD6_3DMODEL_DIR}`
 and need a KiCad installation with the official 3D library.
