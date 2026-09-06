@@ -150,7 +150,7 @@
       (net 13 "Net-(J1-Pad7)") (pinfunction "6") (pintype "passive") (tstamp ce794d17-bb3c-4ea5-a347-dffd32dcfd2e))
     (pad "7" thru_hole oval locked (at 0 15.24 90) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 1 "Net-(J1-Pad8)") (pinfunction "7") (pintype "passive") (tstamp 13771435-03fa-43af-8382-60bf9ccaadd6))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x07_P2.54mm_Vertical.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x07_P2.54mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -251,7 +251,7 @@
       (net 2 "Net-(J1-Pad9)") (pinfunction "8") (pintype "passive") (tstamp bbacc597-cc40-4aa7-9852-5a7340f05cee))
     (pad "7" thru_hole oval locked (at 0 15.24 90) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 15 "unconnected-(J2-Pad7)") (pinfunction "NC") (pintype "passive+no_connect") (tstamp 1a998b84-c7b7-4029-9fed-b2614dd6dbdd))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x07_P2.54mm_Vertical.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x07_P2.54mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))

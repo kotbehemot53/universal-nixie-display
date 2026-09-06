@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "CustomComponents")(type "Legacy")(uri "${KIPRJMOD}/../../lib/CustomComponents.lib")(options "")(descr ""))
+  (lib (name "SamacSys_Parts")(type "Legacy")(uri "${KIPRJMOD}/../../lib/SamacSys_Parts.lib")(options "")(descr ""))
+)

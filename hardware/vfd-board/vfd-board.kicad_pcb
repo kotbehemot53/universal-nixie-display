@@ -214,7 +214,7 @@
       (net 8 "/RxD") (pinfunction "Pin_1") (pintype "passive") (tstamp 1c6871e2-6fd1-49e7-a5bf-e973f1848099))
     (pad "2" thru_hole oval locked (at 0 2.54) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 9 "/TxD") (pinfunction "Pin_2") (pintype "passive") (tstamp 93401af6-86ea-4b14-bedd-4c0f9eb38cc7))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -321,7 +321,7 @@
       (net 11 "/SDA") (pinfunction "PC4") (pintype "bidirectional") (tstamp f86febc3-15bc-4915-aa40-63208deb43c7))
     (pad "28" thru_hole oval locked (at 7.62 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 10 "/SCL") (pinfunction "PC5") (pintype "bidirectional") (tstamp 840a6cb5-9100-4520-a6e2-8b2125373610))
-    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-28_W7.62mm_Socket.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-28_W7.62mm_Socket.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -478,7 +478,7 @@
       (net 51 "/HG3") (pinfunction "R4.1") (pintype "passive") (tstamp 1f19f290-4971-4ec8-829b-2afd925d4b73))
     (pad "8" thru_hole oval locked (at 17.78 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 14 "/LG3") (pinfunction "R4.2") (pintype "passive") (tstamp 6ffe8092-6b70-42c5-afc0-eec946cf2adf))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Array_SIP8.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Array_SIP8.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -536,7 +536,7 @@
       (net 19 "/LSDot") (pinfunction "R4.1") (pintype "passive") (tstamp 5a13addc-0c34-4b08-9378-11a4b8284716))
     (pad "8" thru_hole oval locked (at 17.78 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 43 "/HSDot") (pinfunction "R4.2") (pintype "passive") (tstamp fac10841-0d7f-498c-a7e6-f3f3c9811c44))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Array_SIP8.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Array_SIP8.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -580,7 +580,7 @@
       (net 33 "Net-(Q1-Pad2)") (pinfunction "B") (pintype "input") (tstamp 3c8b8c14-8f73-4b78-972e-cef3b0d01df0))
     (pad "3" thru_hole oval locked (at 2.54 0) (size 1.05 1.5) (drill 0.75) (layers *.Cu *.Mask)
       (net 2 "GND") (pinfunction "E") (pintype "passive") (tstamp efc4a1cf-9652-4e79-a043-42bde0003ade))
-    (model "${KICAD6_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-92_Inline.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-92_Inline.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -683,7 +683,7 @@
       (net 22 "/LSF") (pinfunction "Pin_19") (pintype "passive") (tstamp a92e7b73-6139-4496-98a5-8919bcff89c7))
     (pad "20" thru_hole circle locked (at 2.54 22.86) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 32 "/LSA") (pinfunction "Pin_20") (pintype "passive") (tstamp f099ddf0-ffd8-4b97-8428-37758b4fa903))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x10_P2.54mm_Vertical.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x10_P2.54mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -731,7 +731,7 @@
       (net 39 "/HG9") (pintype "passive") (tstamp 8e59f600-c7cc-4c69-af57-d5d840fc68e6))
     (pad "2" thru_hole oval locked (at 10.16 0 270) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 13 "/LG9") (pintype "passive") (tstamp 043dc439-5928-405f-84d7-dab73b76a27f))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -779,7 +779,7 @@
       (net 3 "/XTAL2") (pinfunction "1") (pintype "passive") (tstamp 80a6f16d-e702-4d00-ac65-cd2202e594d2))
     (pad "2" thru_hole circle locked (at 4.88 0 90) (size 1.5 1.5) (drill 0.8) (layers *.Cu *.Mask)
       (net 1 "/XTAL1") (pinfunction "2") (pintype "passive") (tstamp 7f263271-b885-4f92-b229-871e7627eeeb))
-    (model "${KICAD6_3DMODEL_DIR}/Crystal.3dshapes/Crystal_HC49-4H_Vertical.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Crystal.3dshapes/Crystal_HC49-4H_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -1336,7 +1336,7 @@
       (net 78 "/G8") (pinfunction "Q7") (pintype "output") (tstamp 6368067d-659f-461a-b9d6-7ae13a83f22c))
     (pad "14" thru_hole oval locked (at 7.62 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 4 "+5V") (pinfunction "VCC") (pintype "power_in") (tstamp b39d50f3-b330-4c35-beda-06d03d6811eb))
-    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-14_W7.62mm_Socket.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-14_W7.62mm_Socket.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -1384,7 +1384,7 @@
       (net 23 "/FMNT Vcc") (pintype "passive") (tstamp a72a9a0f-2d83-4232-a0a8-8050be85ab21))
     (pad "2" thru_hole oval locked (at 10.16 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 4 "+5V") (pintype "passive") (tstamp e103422f-45ee-402b-983c-bca7f2d08c01))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -1741,7 +1741,7 @@
       (net 5 "/HV") (pintype "passive") (tstamp 27d20039-db05-43e0-8ec4-cb1501c26a3e))
     (pad "2" thru_hole circle locked (at 2.5 0 180) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 2 "GND") (pintype "passive") (tstamp 5ec7bfd7-d993-426f-89b3-0341499ce730))
-    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -1783,7 +1783,7 @@
       (net 1 "/XTAL1") (pintype "passive") (tstamp 8b03350a-9a27-4e8b-a7f2-d1c74102e621))
     (pad "2" thru_hole circle locked (at 2.5 0 180) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 2 "GND") (pintype "passive") (tstamp d6f6ba6d-6c23-4963-b7cd-f1df2516038c))
-    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -1827,7 +1827,7 @@
       (net 4 "+5V") (pintype "passive") (tstamp c5c49cd4-5511-4b73-bad2-02dbb711334d))
     (pad "2" thru_hole circle locked (at 2.5 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 2 "GND") (pintype "passive") (tstamp 1cbc75ad-0602-45e5-a982-f39546075ae3))
-    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2017,7 +2017,7 @@
       (net 48 "/HG2") (pinfunction "O2") (pintype "open_emitter") (tstamp bcc2a45f-ec97-4476-954d-fe63bc783a7d))
     (pad "18" thru_hole oval locked (at 7.62 0 180) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 52 "/HG1") (pinfunction "O1") (pintype "open_emitter") (tstamp 15af9575-2dc1-41c5-acf1-2242349dfa35))
-    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-18_W7.62mm_Socket.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-18_W7.62mm_Socket.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2066,7 +2066,7 @@
       (net 2 "GND") (pinfunction "K") (pintype "passive") (tstamp e86bc4c3-805e-42fb-b890-12d6ffa3ff9d))
     (pad "4" thru_hole circle locked (at 6.5 4.5) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 56 "unconnected-(SW1-Pad4)") (pinfunction "A") (pintype "passive+no_connect") (tstamp ea55b7f6-691f-4107-bd85-6149f807cb58))
-    (model "${KICAD6_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_TH_Tactile_Omron_B3F-10xx.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Button_Switch_THT.3dshapes/SW_TH_Tactile_Omron_B3F-10xx.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2114,7 +2114,7 @@
       (net 34 "/~{RESET}") (pintype "passive") (tstamp 8d42209e-6624-4187-a589-a377fb713ab2))
     (pad "2" thru_hole oval locked (at 10.16 0 270) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 4 "+5V") (pintype "passive") (tstamp 2cc89c38-85c8-4ba3-be7b-78c2a287dfbd))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2172,7 +2172,7 @@
       (net 47 "/HSA") (pinfunction "R4.1") (pintype "passive") (tstamp 2ed5e1f4-2fb5-4468-a990-b3315aa66053))
     (pad "8" thru_hole oval locked (at 17.78 0 270) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 32 "/LSA") (pinfunction "R4.2") (pintype "passive") (tstamp efcbd558-7790-4226-a4d1-506cc6a3831a))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Array_SIP8.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Array_SIP8.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2220,7 +2220,7 @@
       (net 33 "Net-(Q1-Pad2)") (pintype "passive") (tstamp 81c753fc-42a8-46ac-a1f8-ddbad8fc4637))
     (pad "2" thru_hole oval locked (at 10.16 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 36 "/HV ENABLE") (pintype "passive") (tstamp 91db11e3-4fb6-4d40-971c-d8ffa9f85910))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2261,7 +2261,7 @@
       (net 6 "Net-(D1-Pad1)") (pinfunction "K") (pintype "passive") (tstamp 43443b07-e8b6-410c-94c9-a41a53a8a1a6))
     (pad "2" thru_hole circle locked (at 2.54 0 180) (size 1.8 1.8) (drill 0.9) (layers *.Cu *.Mask)
       (net 7 "/STATUS") (pinfunction "A") (pintype "passive") (tstamp bc6f6896-a406-45e6-a657-707bda1937a9))
-    (model "${KICAD6_3DMODEL_DIR}/LED_THT.3dshapes/LED_D3.0mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/LED_THT.3dshapes/LED_D3.0mm.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2348,7 +2348,7 @@
       (net 46 "/HSB") (pinfunction "O2") (pintype "open_emitter") (tstamp fda5023a-29b4-405e-8228-045f58371411))
     (pad "18" thru_hole oval locked (at 7.62 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 47 "/HSA") (pinfunction "O1") (pintype "open_emitter") (tstamp eb37d26e-949f-457f-a7cc-98bb3b950758))
-    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-18_W7.62mm_Socket.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Package_DIP.3dshapes/DIP-18_W7.62mm_Socket.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2406,7 +2406,7 @@
       (net 27 "/LG4") (pinfunction "R4.1") (pintype "passive") (tstamp cb3957dd-9687-4a05-9ab3-ac6eabc4b7aa))
     (pad "8" thru_hole oval locked (at 17.78 0 270) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 55 "/HG4") (pinfunction "R4.2") (pintype "passive") (tstamp 8a1246a4-3fcf-4ed9-abfd-91208f347a46))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Array_SIP8.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Array_SIP8.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2454,7 +2454,7 @@
       (net 6 "Net-(D1-Pad1)") (pintype "passive") (tstamp c9f44d0e-4692-4951-9bb5-91a504ee4819))
     (pad "2" thru_hole oval locked (at 10.16 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 2 "GND") (pintype "passive") (tstamp 5a0bd9a6-0934-4225-b966-f0a3b84e77ab))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2851,7 +2851,7 @@
       (net 4 "+5V") (pintype "passive") (tstamp 6bfbb231-f998-4aee-a77b-0e6ac7abe2b7))
     (pad "2" thru_hole circle locked (at 2.5 0 270) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 2 "GND") (pintype "passive") (tstamp fdc9b4cd-d96a-479a-925c-3a99a7f6b121))
-    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2899,7 +2899,7 @@
       (net 35 "Net-(R3-Pad1)") (pintype "passive") (tstamp 1c1a97c2-84c9-4f59-ac68-2ac321c4cee6))
     (pad "2" thru_hole oval locked (at 10.16 0 180) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 36 "/HV ENABLE") (pintype "passive") (tstamp 536f1686-5b85-45c8-8947-053e41a7ff57))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2941,7 +2941,7 @@
       (net 3 "/XTAL2") (pintype "passive") (tstamp a7ca59c0-d4f6-4d3c-8a4f-dcb50d73fb27))
     (pad "2" thru_hole circle locked (at 2.5 0 180) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 2 "GND") (pintype "passive") (tstamp c76dc00e-1a8b-4a9b-817a-28360bcde3ff))
-    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D3.0mm_W1.6mm_P2.50mm.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -2985,7 +2985,7 @@
       (net 5 "/HV") (pintype "passive") (tstamp cb454bba-21bb-411e-acd7-874a5ffb2a20))
     (pad "2" thru_hole circle locked (at 2.5 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 2 "GND") (pintype "passive") (tstamp 57bccd3b-dc6b-4280-9806-bec6fabe0994))
-    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Capacitor_THT.3dshapes/C_Disc_D5.0mm_W2.5mm_P2.50mm.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -3056,7 +3056,7 @@
       (net 37 "/G9") (pintype "passive") (tstamp 1d1a9038-8e2a-49c4-ae48-664a7e20b7f4))
     (pad "2" thru_hole oval locked (at 10.16 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 38 "Net-(R5-Pad2)") (pintype "passive") (tstamp 9274ac3c-7708-4cf3-9350-024b8112384d))
-    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -3129,7 +3129,7 @@
       (solder_mask_margin 1.625) (tstamp 31e2d26e-842a-4694-a3ae-7642d792727c))
     (pad "" np_thru_hole circle (at 21.73 -4.87 180) (size 2.75 2.75) (drill 2.75) (layers *.Cu *.Mask)
       (solder_mask_margin 1.625) (tstamp 99162744-5eac-427e-9957-877587056aee))
-    (model "${KICAD6_3DMODEL_DIR}/Module.3dshapes/Raspberry_Pi_Zero_Socketed_THT_FaceDown_MountingHoles.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Module.3dshapes/Raspberry_Pi_Zero_Socketed_THT_FaceDown_MountingHoles.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -4376,7 +4376,7 @@
       (net 10 "/SCL") (pinfunction "Pin_1") (pintype "passive") (tstamp 12c33f7b-7725-41d8-b729-9c4de489c232))
     (pad "2" thru_hole oval locked (at 2.5 0 180) (size 1.7 2) (drill 1) (layers *.Cu *.Mask)
       (net 11 "/SDA") (pinfunction "Pin_2") (pintype "passive") (tstamp ac0e5fea-c55f-4a11-80c4-0aa375ce40e2))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -4442,7 +4442,7 @@
       (net 2 "GND") (pinfunction "Pin_1") (pintype "passive") (tstamp 325e2350-9e90-4a43-b982-7f2ccc491ecc))
     (pad "2" thru_hole oval locked (at 2.5 0 90) (size 1.7 2) (drill 1) (layers *.Cu *.Mask)
       (net 4 "+5V") (pinfunction "Pin_2") (pintype "power_out") (tstamp 16fc3172-868d-4dd1-b1f2-7b6e17f47dfa))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
